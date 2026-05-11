@@ -580,6 +580,157 @@ canvas {
     background: #bbb;
     border-radius: 6px;
   }
+.action-btn {
+  width: 100%;
+  padding: 6px 10px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.dropdown-actions{
+  position:relative;
+}
+
+.action-toggle{
+  background:#111827;
+  color:white;
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  width:100%;
+}
+
+.dropdown-menu{
+  display:none;
+  position:absolute;
+  top:100%;
+  right:0;
+  background:white;
+  min-width:160px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  border-radius:8px;
+  z-index:100;
+  overflow:hidden;
+}
+
+.dropdown-menu button{
+  width:100%;
+  border:none;
+  background:white;
+  padding:10px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.dropdown-menu button:hover{
+  background:#f3f4f6;
+}
+
+.dropdown-actions:hover .dropdown-menu{
+  display:block;
+}
+/* ================= ACTION BUTTONS CONTAINER ================= */
+.action-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:15px 0;
+  align-items:center;
+}
+
+/* ================= GENERAL BUTTON STYLE ================= */
+.action-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  width:auto;              /* ✅ prevents full width */
+  min-width:unset;
+  max-width:max-content;
+
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+
+  font-size:13px;
+  font-weight:600;
+
+  cursor:pointer;
+  white-space:nowrap;
+
+  transition:0.2s ease;
+}
+
+/* ================= HOVER ================= */
+.action-btn:hover{
+  transform:translateY(-1px);
+  opacity:0.92;
+}
+
+/* ================= BUTTON COLORS ================= */
+.btn-green{
+  background:#16a34a;
+  color:white;
+}
+
+.btn-blue{
+  background:#2563eb;
+  color:white;
+}
+
+.btn-gold{
+  background:#d97706;
+  color:white;
+}
+
+.sms-btn{
+  background:#9333ea;
+  color:white;
+}
+
+.btn-performance{
+  background:#0f766e;
+  color:white;
+}
+
+.btn-grade{
+  background:#ca8a04;
+  color:white;
+}
+
+.btn-students{
+  background:#0284c7;
+  color:white;
+}
+
+.btn-term{
+  background:#7c3aed;
+  color:white;
+}
+
+.delete-btn{
+  background:#dc2626;
+  color:white;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width:768px){
+
+  .action-buttons{
+    gap:8px;
+  }
+
+  .action-btn{
+    font-size:12px;
+    padding:7px 12px;
+  }
+
+}
 
 </style>
 </head>
@@ -647,7 +798,9 @@ canvas {
 <button onclick="show('recordMarksSection')">📝 Enter Marks</button>
 <button onclick="show('examResults')" class="btn blue">📄 Results</button>
 <button onclick="show('subjectChampions')" class="btn gold">🏆 Subjects Champions</button>
-<button onclick="show('generateMerit')" class="btn green">📊 Generate Merit List</button>
+<button onclick="show('meritListSection')" class="btn green">
+📊 Generate Merit List
+</button>
 <button onclick="show('subjectPerformance')" class="btn blue">📈 Subject Performance</button>
 <button onclick="show('genderPerformance')" class="btn pink">⚧ Gender Performance</button>
 <button onclick="show('levelSummary')" class="btn indigo">📚 Subject Level Summary</button>
@@ -660,8 +813,6 @@ canvas {
 <button onclick="generateBlankMeritList(); show('generateBlankMerit')" class="btn dark">
   📄 Generate Blank Merit Lists
 </button>
-<button onclick="show('generateSubjectRank')" class="btn cyan">📋 Subject Tracker Analysis</button>
-<button onclick="show('printAssessmentReport')" class="btn black">🖨️ Print Assessment Report</button>
 <button onclick="show('marksStatus')" class="btn red">👁️ Marks Recording Status</button>
 
   </div>
@@ -669,21 +820,78 @@ canvas {
 
   <option value="">-- Select Report to Print --</option>
 
-  <option value="examResultsContent">📄 Results</option>
-  <option value="subjectChampionsContent">🏆 Subjects Champions</option>
-  <option value="meritContent">📊 Merit List</option>
-  <option value="subjectPerformanceContent">📈 Subject Performance</option>
-  <option value="genderPerformanceContent">⚧ Gender Performance</option>
-  <option value="levelSummaryContent">📚 Subject Level Summary</option>
-  <option value="pathwaysContent">🧩 Group Learners Per Pathways</option>
-  <option value="combineMarksContent">🧮 Combine Marks Per Grade</option>
-  <option value="assessmentReportsContent">📄 Assessment Reports</option>
-  <option value="subjectRankingContent">📊 Track Learner Progress</option>
-  <option value="blankMeritContent">📄 Blank Merit Lists</option>
-  <option value="subjectTrackerContent">📋 Subject Tracker Analysis</option>
-  <option value="printAssessmentContent">🖨️ Print Assessment Report</option>
-  <option value="marksStatusContent">👁️ Marks Recording Status</option>
+  <option value="examResultsContent">
+    📄 Results
+  </option>
 
+  <option value="subjectChampionsContent">
+    🏆 Subjects Champions
+  </option>
+
+  <option value="reportOutput">
+    📊 Merit List
+  </option>
+
+  <option value="subjectPerformanceContent">
+    📈 Subject Performance
+  </option>
+
+  <option value="genderPerformanceContent">
+    ⚧ Gender Performance
+  </option>
+
+  <option value="levelSummaryContent">
+    📚 Subject Level Summary
+  </option>
+
+  <option value="groupByPathwaysContent">
+    🧩 Group Learners Per Pathways
+  </option>
+
+  <option value="combineMarksByGradeContent">
+    🧮 Combine Marks Per Grade
+  </option>
+
+  <option value="assessmentReportsContent">
+    📄 Assessment Reports
+  </option>
+
+  <option value="subjectRankingReportContent">
+    📊 Track Learner Progress
+  </option>
+
+  <option value="blankMeritContent">
+    📄 Blank Merit Lists
+  </option>
+
+  <option value="reportOutput">
+    📋 Subject Tracker Analysis
+  </option>
+
+  <option value="printAssessmentContent">
+    🖨️ Print Assessment Report
+  </option>
+
+  <option value="marksStatusContent">
+    👁️ Marks Recording Status
+  </option>
+
+  <option value="filteredLearnersContent">
+    👨‍🎓 Filtered Learners
+  </option>
+
+  <option value="genderGroupedContent">
+    ⚧ Gender Classification
+  </option>
+
+
+<option value="feesTable">
+  💰 Fees Table
+</option>
+
+<option value="defaultersContent">
+  ⚠️ Defaulters List
+</option>
 </select>
 
 <button onclick="printSelectedReport()" class="btn black">
@@ -734,7 +942,10 @@ canvas {
       <h3>📚 Total Subjects</h3>
       <p id="totalSubjects">9</p>
     </div>
-
+<div class="card">
+  <h3>👩‍🏫 Total Teachers</h3>
+  <h1 id="totalTeachers">0</h1>
+</div>
     <div class="dash-card" style="background:#f59e0b; color:white; padding:15px; border-radius:12px;">
       <h3>👨‍🎓 Total Students</h3>
       <p id="totalStudents">0</p>
@@ -768,7 +979,7 @@ canvas {
 
       <div style="background:#ffffff; padding:20px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
         <h3>Students Per Grade Chart</h3>
-   <canvas id="gradeChart" style="max-height:250px;"></canvas>
+   <canvas id="studentGradeChart" style="max-height:250px;"></canvas>
       </div>
 
       <div style="background:#ffffff; padding:20px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
@@ -782,41 +993,93 @@ canvas {
 
 </div>
 
-    <!-- ================= STUDENTS ================= -->
-    <div id="students" style="display:none;">
-      <h3>Students</h3>
+  <!-- ================= STUDENTS ================= -->
+<div id="students" style="display:none;">
+<h3>
+  <span style="
+    background: yellow;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+  ">
+    Students (Single & Bulk Registration)
+  </span>
+</h3>
 
-      <input id="studentName" placeholder="Name">
-      <input id="adm" placeholder="ADM No">
-      <input id="grade" placeholder="Grade">
+  <!-- 🔥 BULK FRIENDLY INPUT -->
+  <textarea id="studentName" placeholder="Enter/paste names here...
+One per line for bulk registration
+John Doe
+Mary Wanjiku
+Peter Kimani"
+rows="6"
+style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;"></textarea>
 
-      <select id="gender">
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
+  <!-- 📊 LIVE COUNTER -->
+  <div id="nameCounter" style="margin-top:6px; font-weight:bold; color:#2E7D32;">
+    0 names detected
+  </div>
 
-      <input id="age" placeholder="Age">
-      <input id="parentName" placeholder="Parent Name">
-      <input id="parentPhone" placeholder="Parent Phone">
-      <input id="birthCert" placeholder="Birth Cert No">
-      <input id="admissionNo" placeholder="Admission No">
-      <input id="photo" type="file">
-<button onclick="addStudent()" style="
-  background: linear-gradient(135deg, #4CAF50, #2E7D32);
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-">
-  ➕ Add Student
-</button>
+  <!-- 📥 EXCEL PASTE -->
+  <button onclick="pasteFromClipboard()" style="
+    margin-top:8px;
+    background:#1976D2;
+    color:white;
+    padding:8px 12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+  ">
+    📥 Paste from Excel
+  </button>
+
+  <input id="adm" placeholder="ADM No">
+  <input id="grade" placeholder="Grade">
+
+  <select id="gender">
+    <option value="">Select Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+  </select>
+
+  <input id="age" placeholder="Age">
+  <input id="parentName" placeholder="Parent Name">
+  <input id="parentPhone" placeholder="Parent Phone">
+  <input id="birthCert" placeholder="Birth Cert No">
+  <input id="admissionNo" placeholder="Admission No">
+
+  <input id="photo" type="file">
+
+  <!-- 👀 PREVIEW BUTTON -->
+  <button onclick="previewStudents()" style="
+    margin-top:8px;
+    background:#6A1B9A;
+    color:white;
+    padding:8px 12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+  ">
+    👀 Preview List
+  </button>
+
+  <!-- ➕ ADD BUTTON -->
+  <button onclick="addStudent()" style="
+    margin-top:10px;
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  ">
+    ➕ Add Student
+  </button>
 
       <hr>
 
@@ -961,43 +1224,214 @@ canvas {
   </table>
 
 </div>
-    <!-- ================= ATTENDANCE ================= -->
-    <div id="attendanceSection" style="display:none;">
+    <!-- ================= ATTENDANCE STATS ================= -->
+<div id="attendanceStats" style="margin:10px 0; font-weight:bold;"></div>
 
-      <h2>📅 Attendance</h2>
+<!-- ================= ATTENDANCE REGISTER ================= -->
+<div id="attendanceSection" style="display:none;" class="table-container">
 
-      <select id="attendanceGrade"></select>
-      <input type="date" id="attendanceDate">
+  <h2 class="section-header">
+    📅 Daily Attendance Register
+  </h2>
 
-      <button id="loadAttendanceBtn">Load</button>
-      <button id="saveAttendanceBtn">Save</button>
-      <button id="viewAttendanceReportBtn">Report</button>
+  <div class="filter-bar">
 
-      <div id="attendanceOutput"></div>
-      <div id="attendanceReportOutput"></div>
+    <select id="attendanceGrade">
+      <option value="">🎓 Select Grade</option>
+    </select>
+
+    <input type="date" id="attendanceDate">
+
+    <!-- 🔥 RANGE FILTER (NEW POWER FEATURE) -->
+    <input type="date" id="attendanceStartDate">
+    <input type="date" id="attendanceEndDate">
+
+    <div class="button-group">
+
+      <button class="btn load-btn" onclick="loadAttendance()">
+        📂 Load
+      </button>
+
+      <button class="btn save-btn" onclick="saveAttendance()">
+        💾 Save
+      </button>
+
+      <button class="btn report-btn" onclick="viewAttendanceReport()">
+        📊 Report
+      </button>
 
     </div>
 
-    <!-- ================= FEES ================= -->
-    <div id="fees" style="display:none;">
-      <h3>Fees</h3>
-      <input id="feeStudent">
-      <input id="feeAmount">
-      <button onclick="addFee()">Save</button>
-    </div>
+  </div>
 
-    <!-- ================= PAYROLL ================= -->
-    <div id="payroll" style="display:none;">
-      <h3>Payroll</h3>
-      <input id="payTeacher">
-      <input id="payAmount">
-      <button onclick="addPayroll()">Pay</button>
+  <div id="attendanceReportOutput"></div>
+  <div id="attendanceOutput"></div>
+
+</div>
+
+<!-- ================= ATTENDANCE SUMMARY ================= -->
+<div id="attendanceSummary" style="margin-top:15px; font-weight:bold;"></div>
+
     </div>
+<!-- ================= FEES ================= -->
+<div id="fees" style="display:none; padding:20px;">
+
+  <h3>💰 Fees Management</h3>
+
+  <!-- ================= FORM ================= -->
+  <div>
+ <select id="feeYear">
+  <option value="">-- Select Year --</option>
+</select>
+
+    <select id="feeGrade" onchange="loadFeeLearners()">
+      <option value="">-- Select Grade --</option>
+    </select>
+
+    <select id="feeStudent">
+      <option value="">-- Select Learner --</option>
+    </select>
+
+    <select id="feeType">
+        <option value="Tuition Fees">Tuition Fees</option>
+      <option value="Admission Registration Fees">Admission Registration Fees</option>
+      <option value="Boarding Fees">Boarding Fees</option>
+      <option value="Lunch">Lunch</option>
+      <option value="Activity Fees">Activity Fees</option>
+      <option value="Examination Fees">Examination Fees</option>
+      <option value="Development Fees">Development Fees</option>
+      <option value="Maintenance Fees">Maintenance Fees</option>
+      <option value="Uniform Fees">Uniform Fees</option>
+      <option value="Transport Fees">Transport Fees</option>
+      <option value="PTA Fees">PTA Fees</option>
+      <option value="Medical Fees">Medical Fees</option>
+      <option value="Computer ICT Fees">Computer ICT Fees</option>
+
+      <option value="Term 1 Midterm Exam">Term 1 Midterm Exam</option>
+      <option value="Term 1 End Term Exam">Term 1 End Term Exam</option>
+      <option value="Term 2 Midterm Exam">Term 2 Midterm Exam</option>
+      <option value="Term 2 End Term Exam">Term 2 End Term Exam</option>
+      <option value="Term 3 Midterm Exam">Term 3 Midterm Exam</option>
+      <option value="Term 3 End Term Exam">Term 3 End Term Exam</option>
+
+      <option value="KNEC Project">KNEC Project</option>
+      <option value="Trip">Trip</option>
+      <option value="Others">Others</option>
+
+      <option value="Security Fees">Security Fees</option>
+      <option value="Boarding Teacher Fees">Boarding Teacher Fees</option>
+      <option value="Cooks Fees">Cooks Fees</option>
+      <option value="Electricity Fees">Electricity Fees</option>
+      <option value="Internet Fees">Internet Fees</option>
+
+      <option value="Games Fees">Games Fees</option>
+      <option value="Clubs Fees">Clubs Fees</option>
+      <option value="Scouts Fees">Scouts Fees</option>
+    </select>
+<select id="paymentMethod">
+  <option value="">Select Payment Method</option>
+  <option value="Cash">Cash</option>
+  <option value="M-Pesa">M-Pesa</option>
+  <option value="Bank">Bank</option>
+</select>
+    <input id="feeAmount" type="number" placeholder="Amount (KES)">
+    <button onclick="addFee()">💾 Save Fee</button>
+  </div>
+
+  <hr>
+
+  <!-- ================= FINANCE SUMMARY ================= -->
+  <div style="margin:20px 0; padding:10px; border:1px solid #ccc;">
+    <h3>📊 Finance Summary</h3>
+    <p>Total Expected: <b id="totalExpected">0</b></p>
+    <p>Total Paid: <b id="totalPaid">0</b></p>
+    <p>Total Balance: <b id="totalBalance">0</b></p>
+  </div>
+<div style="display:flex;gap:15px;flex-wrap:wrap;margin-top:15px;">
+
+  <div style="
+    background:#16a34a;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    min-width:200px;
+  ">
+    <h3>💵 Cash</h3>
+    <h2 id="cashTotal">0</h2>
+  </div>
+
+  <div style="
+    background:#059669;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    min-width:200px;
+  ">
+    <h3>📲 M-Pesa</h3>
+    <h2 id="mpesaTotal">0</h2>
+  </div>
+
+  <div style="
+    background:#2563eb;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    min-width:200px;
+  ">
+    <h3>🏦 Bank</h3>
+    <h2 id="bankTotal">0</h2>
+  </div>
+
+</div>
+<div class="dashboard-grid">
+
+  <div class="card">
+    <h3>💰 Fees Overview</h3>
+    <canvas id="feeChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>🏫 Fees by Grade</h3>
+    <canvas id="gradeChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>📊 Fee Type Breakdown</h3>
+    <canvas id="typeChart"></canvas>
+  </div>
+
+</div>
+
+<button onclick="showDefaulters()"
+  style="background:#dc2626;color:white;padding:8px 12px;border-radius:6px;">
+  🚨 Defaulters
+</button>
+
+<button onclick="printFeesTable()">🖨 Print Fees</button>
+<select id="filterFeeYear" onchange="loadFees();loadFinanceSummary();">
+</select>
+
+<select id="filterFeeGrade" onchange="loadFees();loadFinanceSummary();">
+  <option value="">All Grades</option>
+</select>
+  <hr>
+<!-- ================= FEES TABLE ================= -->
+<table border="1" width="100%" id="feesTable">
+
+  <thead>
+    <!-- 🔥 Headers generated dynamically from JS -->
+  </thead>
+
+  <tbody></tbody>
+
+</table>
+ 
+  </div>
 
 
 
 <!-- ===================== -->
-<!-- RECORD MARKS SECTION -->
+
 <!-- ===================== -->
 <div id="recordMarksSection" class="section" style="display:none;">
 
@@ -1092,65 +1526,61 @@ canvas {
   <i class="fas fa-database"></i> Load Exam Results
 </button>
 
-  <!-- ================= ACTION BUTTONS ================= -->
-  <div style="
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 15px 0;
-    align-items: center;
-  ">
+ <!-- ================= ACTION BUTTONS ================= -->
+<div class="action-buttons">
 
-    <button onclick="sendResultsToParents()" class="action-btn btn-green">
-      📤 Send All Results
-    </button>
+  <button onclick="sendResultsToParents()" class="action-btn btn-green">
+    📤 Send All Results
+  </button>
 
-    <button onclick="sendSelectedResults()" class="action-btn btn-blue">
-      ✅ Send Selected Results
-    </button>
+  <button onclick="sendSelectedResults()" class="action-btn btn-blue">
+    ✅ Send Selected
+  </button>
 
-    <button onclick="sendLoadedResults()" class="action-btn btn-green">
-      📤 Send Loaded Grade
-    </button>
+  <button onclick="sendLoadedResults()" class="action-btn btn-green">
+    📤 Send Loaded Grade
+  </button>
 
-    <button onclick="generateCertificates()" class="action-btn btn-gold">
-      🎓 Top 5 Certificates
-    </button>
+  <button onclick="generateCertificates()" class="action-btn btn-gold">
+    🎓 Top 5 Certificates
+  </button>
 
-    <button id="sendSmsResultsBtn" class="action-btn sms-btn">
-      📩 Send SMS Results
-    </button>
+  <button id="sendSmsResultsBtn" class="action-btn sms-btn">
+    📩 SMS Results
+  </button>
 
-    <button class="action-btn btn-performance" data-target="performanceSection">
-      🏆 Performance Insight
-    </button>
+  <button class="action-btn btn-performance" data-target="performanceSection">
+    🏆 Performance
+  </button>
 
-    <button class="action-btn btn-grade" data-target="topGradeSection">
-      🥇 Top Performing Grade
-    </button>
+  <button class="action-btn btn-grade" data-target="topGradeSection">
+    🥇 Top Grade
+  </button>
 
-    <button class="action-btn btn-students" data-target="topStudentsSection">
-      👨‍🎓 Top 5 Students
-    </button>
+  <button class="action-btn btn-students" data-target="topStudentsSection">
+    👨‍🎓 Top Students
+  </button>
 
-    <button class="action-btn btn-term" data-target="termPerformanceSection">
-      📊 Termly Performance
-    </button>
-<button onclick="deleteSelectedLearnersMarks()" class="delete-btn">
-  <i class="fa fa-trash"></i> Delete Selected
-</button>
-  </div>
+  <button class="action-btn btn-term" data-target="termPerformanceSection">
+    📊 Term Performance
+  </button>
 
-  <!-- ================= TABLE ================= -->
-  <table class="marks-table" style="margin-top:10px; width:100%;">
+  <button onclick="deleteSelectedLearnersMarks()" class="action-btn delete-btn">
+    <i class="fa fa-trash"></i> Delete Selected
+  </button>
 
-    <thead>
-      <tr>
-<th>
-  <input type="checkbox" id="selectAllStudents">
-</th>
+</div>
 
-        <th>No.</th>
+<!-- ================= TABLE ================= -->
+<table class="marks-table" style="margin-top:10px; width:100%;">
+
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" id="selectAllStudents">
+      </th>
+
+      <th>No.</th>
       <th>Name</th>
       <th>Grade</th>
       <th>Eng</th><th>Lev</th>
@@ -1167,11 +1597,14 @@ canvas {
       <th>Action</th>
     </tr>
   </thead>
+
   <tbody id="marksList"></tbody>
+
   <tfoot>
     <tr id="totalsRow"></tr>
     <tr id="averagesRow"></tr>
   </tfoot>
+
 </table>
 </div>
 
@@ -1398,7 +1831,143 @@ canvas {
 
   </div>
 </div>
+<div id="feeHistoryModal" style="
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+">
 
+  <div style="
+    background:white;
+    width:500px;
+    max-width:90%;
+    border-radius:10px;
+    padding:20px;
+    max-height:80vh;
+    overflow:auto;
+    position:relative;
+  ">
+
+    <!-- CLOSE BUTTON -->
+    <button onclick="closeFeeHistory()" style="
+      position:absolute;
+      right:10px;
+      top:10px;
+      background:red;
+      color:white;
+      border:none;
+      padding:5px 10px;
+      border-radius:5px;
+      cursor:pointer;
+    ">X</button>
+
+    <div id="feeHistoryContent"></div>
+
+  </div>
+</div>
+
+<div id="editFeeModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+
+  <div style="background:white;padding:20px;width:400px;border-radius:10px;">
+
+    <h3>Edit Fee Payment</h3>
+
+    <div id="editFeeContent"></div>
+
+    <br>
+
+    <button onclick="saveEditedFee()" style="background:green;color:white;padding:8px;">
+      💾 Save
+    </button>
+
+    <button onclick="closeEditFeeModal()" style="background:red;color:white;padding:8px;">
+      ❌ Close
+    </button>
+
+  </div>
+</div>
+
+
+<div id="defaultersModal"
+     style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);
+     justify-content:center;align-items:center;">
+
+  <div style="background:white;width:85%;max-height:85vh;overflow:auto;padding:20px;border-radius:10px;">
+
+    <h2>🚨 Fee Defaulters Dashboard</h2>
+
+    <div style="display:flex;gap:20px;margin:10px 0;">
+      <div>👥 <b>Total Defaulters:</b> <span id="defCount">0</span></div>
+      <div>💰 <b>Total Owed:</b> KES <span id="defTotal">0</span></div>
+    </div>
+
+    <button onclick="sendDefaulterSMS()"
+      style="background:#16a34a;color:white;padding:8px 12px;border-radius:6px;margin-bottom:10px;">
+      📩 Send SMS to All
+    </button>
+<button onclick="printDefaulters()">🖨 Print Defaulters</button>
+
+
+    <button onclick="document.getElementById('defaultersModal').style.display='none'"
+      style="float:right;background:red;color:white;padding:5px 10px;border:none;">
+      Close
+    </button>
+<select id="defGrade" onchange="showDefaulters()"
+  style="padding:6px;border:1px solid #ccc;border-radius:6px;margin-bottom:10px;">
+  <option value="">All Grades</option>
+</select>
+    <table style="width:100%;margin-top:10px;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f3f4f6;">
+          <th>#</th>
+          <th>Student</th>
+          <th>Grade</th>
+          <th>Total Paid</th>
+          <th>Balance</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="defaultersBody"></tbody>
+    </table>
+
+  </div>
+</div>
+
+<div id="defaultersPrintContent" style="display:none;">
+
+  <h2>🚨 Fee Defaulters Report</h2>
+
+  <div>
+    👥 Total Defaulters: <span id="defCount"></span> <br>
+    💰 Total Owed: KES <span id="defTotal"></span>
+  </div>
+
+  <br>
+
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Student</th>
+        <th>Grade</th>
+        <th>Total Paid</th>
+        <th>Balance</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody id="defaultersBodyClone"></tbody>
+  </table>
+
+</div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
@@ -1455,16 +2024,35 @@ function show(id) {
   // ==============================
   // 🔥 MARKS SECTION INITIAL LOAD
   // ==============================
-  if (id === "recordMarksSection") {
+ // ==============================
+// 🔥 MARKS SECTION INITIAL LOAD
+// ==============================
+if (id === "recordMarksSection") {
+
+  setTimeout(() => {
+    loadGradesFromStudents();
+
     setTimeout(() => {
-      loadGradesFromStudents();
-
-      setTimeout(() => {
-        loadLearnersFromStudents();
-      }, 300);
-
+      loadLearnersFromStudents();
     }, 300);
-  }
+
+  }, 300);
+}
+
+// ==============================
+// 💰 FEES SECTION INITIAL LOAD
+// ==============================
+if (id === "fees") {
+
+  setTimeout(() => {
+    loadFeeGrades();
+
+    setTimeout(() => {
+      loadFeeLearners();
+    }, 300);
+
+  }, 300);
+}
 
   // ==============================
   // 📊 REPORT GENERATION TRIGGER
@@ -1708,7 +2296,6 @@ window.addStudent = async () => {
     let admissionNo = document.getElementById('admissionNo').value.trim();
     const photoFile = document.getElementById('photo').files[0];
 
-    // ❌ REPLACED alert()
     if (!nameInput || !grade) {
         return Swal.fire({
             icon: 'warning',
@@ -1729,7 +2316,11 @@ window.addStudent = async () => {
         .map(n => n.trim())
         .filter(n => n);
 
-    namesArray = [...new Set(namesArray)];
+    namesArray = [...new Set(namesArray.map(n => n.toLowerCase()))]
+    .map(n => n.split(' ')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ')
+    );
 
     const isBulk = namesArray.length > 1;
 
@@ -1789,12 +2380,17 @@ window.addStudent = async () => {
             applyStudentFilters();
         }, 200);
 
-        return Swal.fire({
+        Swal.fire({
             icon: 'success',
             title: 'Bulk Registration Complete 🎉',
             html: `<b>${successCount}</b> students added successfully<br>Total attempted: ${total}`,
             confirmButtonColor: '#28a745'
         });
+
+        // ✅ ONLY CLEAR NAME FIELD
+        document.getElementById('studentName').value = "";
+
+        return;
     }
 
     // ================= SINGLE =================
@@ -1839,6 +2435,9 @@ window.addStudent = async () => {
             showConfirmButton: false
         });
 
+        // ✅ ONLY CLEAR NAME FIELD
+        document.getElementById('studentName').value = "";
+
     } catch (err) {
 
         Swal.fire({
@@ -1847,18 +2446,71 @@ window.addStudent = async () => {
             text: err.message || 'Could not add student'
         });
     }
+};
+document.getElementById('studentName').addEventListener('input', () => {
 
-    // ================= RESET =================
-    document.getElementById('studentName').value = "";
-    document.getElementById('adm').value = "";
-    document.getElementById('grade').value = "";
-    document.getElementById('age').value = "";
-    document.getElementById('parentName').value = "";
-    document.getElementById('parentPhone').value = "";
-    document.getElementById('birthCert').value = "";
-    document.getElementById('admissionNo').value = "";
-    document.getElementById('photo').value = "";
-};window.addTeacher = async () => {
+    const names = document.getElementById('studentName').value
+        .split(/\r?\n|\t/)
+        .map(n => n.trim())
+        .filter(n => n);
+
+    document.getElementById('nameCounter').innerText =
+        `${names.length} names detected`;
+});
+window.pasteFromClipboard = async function () {
+    try {
+
+        const text = await navigator.clipboard.readText();
+
+        if (!text) {
+            return Swal.fire("Empty Clipboard", "Nothing to paste", "warning");
+        }
+
+        const field = document.getElementById('studentName');
+
+        field.value = text;
+
+        // trigger counter update
+        field.dispatchEvent(new Event('input'));
+
+    } catch (err) {
+        console.error(err);
+
+        Swal.fire({
+            icon: "error",
+            title: "Clipboard blocked",
+            text: "Browser denied clipboard access. Try Ctrl + V instead."
+        });
+    }
+};
+window.previewStudents = function () {
+
+    const field = document.getElementById('studentName');
+
+    if (!field) {
+        return Swal.fire("Error", "Student input not found", "error");
+    }
+
+    const names = field.value
+        .split(/\r?\n|\t/)
+        .map(n => n.trim())
+        .filter(n => n);
+
+    if (names.length === 0) {
+        return Swal.fire("No Data", "No names to preview", "info");
+    }
+
+    const listHTML = names.map((n, i) =>
+        `<li>${i + 1}. ${n}</li>`
+    ).join("");
+
+    Swal.fire({
+        title: `Preview (${names.length} students)`,
+        html: `<ul style="text-align:left; max-height:300px; overflow:auto;">${listHTML}</ul>`,
+        width: 450
+    });
+};
+window.addTeacher = async () => {
 
   const teacherData = {
     name: document.getElementById("teacherName").value.trim(),
@@ -1912,53 +2564,91 @@ function loadTeachers() {
   onValue(schoolRef("teachers"), (snap) => {
 
     const tbody = document.getElementById("teacherList");
+
+    if (!tbody) {
+      console.warn("❌ teacherList tbody not found");
+      return;
+    }
+
     tbody.innerHTML = "";
 
     let count = 0;
-    const teachersArray = [];
+
+    if (!snap.exists()) {
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="7" style="text-align:center;padding:15px;color:gray;">
+            No teachers found
+          </td>
+        </tr>
+      `;
+
+      document.getElementById("totalTeachers").innerText = 0;
+      return;
+    }
 
     snap.forEach(child => {
 
-      const t = child.val();
+      const t = child.val() || {};
       const id = child.key;
 
-      teachersArray.push(t);
       count++;
 
-      // ================= SAFE VALUES (prevents breaking HTML) =================
-      const name = t.name || "";
-      const phone = t.phone || "";
-      const email = t.email || "";
-      const subject = t.subject || "";
-      const classAssigned = t.classAssigned || "";
+      const name = t.name || "-";
+      const phone = t.phone || "-";
+      const email = t.email || "-";
+      const subject = t.subject || "-";
+      const classAssigned = t.classAssigned || "-";
 
       tbody.innerHTML += `
         <tr>
+
           <td>${count}</td>
           <td>${name}</td>
           <td>${phone}</td>
           <td>${email}</td>
           <td>${subject}</td>
           <td>${classAssigned}</td>
+
+          <!-- ================= ACTIONS DROPDOWN ================= -->
           <td>
-            
-            <button onclick="editTeacher('${id}', \`${name}\`, \`${phone}\`, \`${email}\`, \`${subject}\`, \`${classAssigned}\`)"
-              style="background:orange;color:white;border:none;padding:5px;border-radius:5px;">
-              Edit
-            </button>
+            <div class="dropdown-actions">
 
-            <button onclick="deleteTeacher('${id}')"
-              style="background:red;color:white;border:none;padding:5px;border-radius:5px;">
-              Delete
-            </button>
+              <button class="action-toggle">
+                ⚙ Actions
+              </button>
 
+              <div class="dropdown-menu">
+
+                <button onclick="editTeacher('${id}', \`${name}\`, \`${phone}\`, \`${email}\`, \`${subject}\`, \`${classAssigned}\`)">
+                  ✏️ Edit
+                </button>
+
+                <button onclick="deleteTeacher('${id}')">
+                  🗑 Delete
+                </button>
+
+                <button onclick="viewTeacherProfile('${id}')">
+                  👁 View Profile
+                </button>
+
+                <button onclick="sendTeacherSMS('${phone}', '${name}')">
+                  📩 SMS
+                </button>
+
+              </div>
+
+            </div>
           </td>
+
         </tr>
       `;
     });
 
-    // ================= 🔥 LIVE DASHBOARD UPDATE =================
     document.getElementById("totalTeachers").innerText = count;
+
+    console.log("👩‍🏫 Teachers loaded:", count);
 
   });
 }
@@ -2033,295 +2723,31 @@ window.filterTeachers = () => {
 
   });
 };
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
   loadTeachers();
+
+  await loadFeeYears();
+
+  loadFeeFormYears();
+
+  loadFeeFilterGrades();
+
+  loadFees();
+
+  loadFinanceSummary();
+
+  loadStudents();
+
+  loadDashboardCharts(); // 🔥 ADD THIS
+
 });
-const attendanceOutput = document.getElementById("attendanceOutput");
-let isSavingAttendance = false;
-
-/* ===============================
-   LOAD ATTENDANCE (GRADE VIEW)
-================================ */
-document.getElementById("loadAttendanceBtn").addEventListener("click", () => {
-
-  const grade = document.getElementById("attendanceGrade").value;
-  if (!grade) return Swal.fire("Select Grade", "Please select a grade first", "warning");
-
-  const learners = allLearners.filter(l => l.grade === grade);
-
-  const boys = learners.filter(l => l.gender === "Male");
-  const girls = learners.filter(l => l.gender === "Female");
-
-  function generateTable(title, list) {
-    if (!list.length) return "";
-
-    return `
-      <h3 class="section-title">${title} (${list.length})</h3>
-
-      <table class="learners-table" style="border-collapse:collapse;width:100%;">
-        <thead>
-          <tr>
-            <th style="border:1px solid #000;padding:6px;">No</th>
-            <th style="border:1px solid #000;padding:6px;">Name</th>
-            <th style="border:1px solid #000;padding:6px;">Adm No</th>
-            <th style="border:1px solid #000;padding:6px;">Present</th>
-            <th style="border:1px solid #000;padding:6px;">Absent</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${list.map((l, i) => `
-            <tr id="row_${l.key}">
-              <td style="border:1px solid #000;padding:6px;">${i + 1}</td>
-              <td style="border:1px solid #000;padding:6px;">${l.name}</td>
-              <td style="border:1px solid #000;padding:6px;">${l.admissionNo || ""}</td>
-
-              <td style="border:1px solid #000;padding:6px;text-align:center;">
-                <input type="radio" name="att_${l.key}" value="Present" checked data-key="${l.key}">
-              </td>
-
-              <td style="border:1px solid #000;padding:6px;text-align:center;">
-                <input type="radio" name="att_${l.key}" value="Absent" data-key="${l.key}">
-              </td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    `;
-  }
-
-  let html = generateTable("👦 Boys", boys) + generateTable("👧 Girls", girls);
-
-  attendanceOutput.innerHTML = html || "<p>No learners found</p>";
-
-  // prevent duplicate listeners (FIXED)
-  attendanceOutput.onchange = (e) => {
-    if (e.target.type === "radio") {
-      updateRowColor(e.target.dataset.key, e.target.value);
-      updateStats();
-    }
-  };
-
-  updateStats();
-});
-
-/* ===============================
-   SAVE ATTENDANCE (FAST BULK)
-================================ */
-document.getElementById("saveAttendanceBtn").addEventListener("click", async () => {
-
-  if (isSavingAttendance) return;
-  isSavingAttendance = true;
-
-  const saveBtn = document.getElementById("saveAttendanceBtn");
-  const originalText = saveBtn.innerHTML;
-
-  try {
-    const date = document.getElementById("attendanceDate").value;
-    const grade = document.getElementById("attendanceGrade").value;
-
-    if (!date || !grade) throw new Error("Select date and grade");
-
-    const learners = allLearners.filter(l => l.grade === grade);
-
-    const updates = {};
-    let count = 0;
-
-    learners.forEach(l => {
-      const selected = document.querySelector(`input[name="att_${l.key}"]:checked`);
-      if (!selected) return;
-
-      updates[`attendance/${date}/${l.key}`] = {
-        name: l.name,
-        admissionNo: l.admissionNo || "",
-        grade: l.grade,
-        status: selected.value,
-        timestamp: Date.now()
-      };
-
-      count++;
-    });
-
-    if (!count) throw new Error("No attendance selected");
-
-    saveBtn.innerHTML = "Saving...";
-    saveBtn.disabled = true;
-
-    await update(ref(db), updates);
-
-    Swal.fire("Success", "Attendance saved", "success");
-
-  } catch (err) {
-    Swal.fire("Error", err.message, "error");
-
-  } finally {
-    saveBtn.innerHTML = originalText;
-    saveBtn.disabled = false;
-    isSavingAttendance = false;
-  }
-});
-
-/* ===============================
-   POPULATE GRADES (DYNAMIC FIX)
-================================ */
-function populateAttendanceGrades() {
-
-  const gradeSelect = document.getElementById("attendanceGrade");
-
-  const grades = [...new Set(allLearners.map(l => l.grade).filter(Boolean))];
-
-  gradeSelect.innerHTML = `<option value="">Select Grade</option>`;
-
-  grades.forEach(g => {
-    const opt = document.createElement("option");
-    opt.value = g;
-    opt.textContent = g;
-    gradeSelect.appendChild(opt);
-  });
-}
-
-/* ===============================
-   ROW COLOR
-================================ */
-function updateRowColor(key, status) {
-  const row = document.getElementById("row_" + key);
-  if (!row) return;
-
-  row.style.background = status === "Absent" ? "#ffcccc" : "#ccffcc";
-}
-
-/* ===============================
-   STATS
-================================ */
-function updateStats() {
-  const present = document.querySelectorAll("#attendanceOutput input[value='Present']:checked").length;
-  const absent = document.querySelectorAll("#attendanceOutput input[value='Absent']:checked").length;
-
-  console.log("Present:", present, "Absent:", absent);
-}
-
-/* ===============================
-   MARK ALL
-================================ */
-function markAllPresent() {
-  document.querySelectorAll("#attendanceOutput input[value='Present']")
-    .forEach(r => r.checked = true);
-  updateStats();
-}
-
-function markAllAbsent() {
-  document.querySelectorAll("#attendanceOutput input[value='Absent']")
-    .forEach(r => r.checked = true);
-  updateStats();
-}
-
-/* ===============================
-   VIEW REPORT (FIXED - NO DUPLICATES)
-================================ */
-document.getElementById("viewAttendanceReportBtn").addEventListener("click", async () => {
-
-  const grade = document.getElementById("attendanceGrade").value;
-  const startDate = document.getElementById("attendanceStartDate").value;
-  const endDate = document.getElementById("attendanceEndDate").value;
-
-  if (!grade) return Swal.fire("Select grade", "", "warning");
-  if (!startDate || !endDate) return Swal.fire("Select date range", "", "warning");
-
-  const snapshot = await get(ref(db, "attendance"));
-  if (!snapshot.exists()) return Swal.fire("No data", "", "info");
-
-  const data = snapshot.val();
-  const stats = {};
-  const selectedDates = Object.keys(data)
-    .filter(d => d >= startDate && d <= endDate)
-    .sort();
-
-  if (!selectedDates.length) return Swal.fire("No data in range", "", "info");
-
-  selectedDates.forEach(date => {
-
-    const dayData = data[date];
-
-    Object.keys(dayData).forEach(id => {
-
-      const record = dayData[id];
-      if (record.grade !== grade) return;
-
-      if (!stats[id]) {
-        const learner = allLearners.find(l => l.key === id);
-
-        stats[id] = {
-          name: record.name,
-          gender: learner?.gender || "",
-          present: 0,
-          days: {}
-        };
-      }
-
-      stats[id].days[date] = record.status;
-
-      if (record.status === "Present") stats[id].present++;
-    });
-  });
-
-  const boys = Object.values(stats).filter(s => s.gender === "Male");
-  const girls = Object.values(stats).filter(s => s.gender === "Female");
-
-  function buildTable(title, list) {
-    if (!list.length) return "";
-
-    return `
-      <h3>${title}</h3>
-      <table class="learners-table" style="border:1px solid #000;border-collapse:collapse;width:100%;">
-        <thead>
-          <tr>
-            <th style="border:1px solid #000;">No</th>
-            <th style="border:1px solid #000;">Name</th>
-            ${selectedDates.map(d => `<th style="border:1px solid #000;">${d}</th>`).join("")}
-          </tr>
-        </thead>
-        <tbody>
-          ${list.map((s, i) => `
-            <tr>
-              <td style="border:1px solid #000;">${i+1}</td>
-              <td style="border:1px solid #000;">${s.name}</td>
-              ${selectedDates.map(d => `
-                <td style="border:1px solid #000;">
-                  ${s.days[d] || "-"}
-                </td>
-              `).join("")}
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    `;
-  }
-
-  document.getElementById("attendanceReportOutput").innerHTML =
-    buildTable("👦 Boys", boys) +
-    buildTable("👧 Girls", girls);
-});
-
-window.addFee = async () => {
-  await push(schoolRef("fees"), {
-    student: feeStudent.value,
-    amount: feeAmount.value
-  });
-};
-
-window.addPayroll = async () => {
-  await push(schoolRef("payroll"), {
-    teacher: payTeacher.value,
-    amount: payAmount.value
-  });
-};
-
-
 let filtersReady = false;
-
-
-// ================= GLOBAL =================
 let allStudents = [];
+let currentEditFeeId = null;
+let currentEditData = null;
 
+// ================= LOAD STUDENTS =================
 function loadStudents() {
 
   const tbody = document.getElementById("learnersList");
@@ -2332,78 +2758,2008 @@ function loadStudents() {
     allStudents = [];
 
     if (!snap.exists()) {
+
       renderStudents([]);
+      loadDefaulterGrades();
+      loadFeeFilterGrades();
+      loadGradesFromStudents();
+      updateDashboardFromStudents();
+
       return;
     }
 
     snap.forEach(child => {
+
+      const data = child.val();
+
       allStudents.push({
-        ...child.val(),
-        id: child.key
+        ...data,
+        id: child.key,
+        parentPhone: (data.parentPhone || "").toString().trim()
       });
     });
 
     filtersReady = true;
 
+    // ================= CORE UI =================
     bindFilterEvents();
     loadGradeFilterOptions();
     applyStudentFilters();
+
+    // ================= DASHBOARD (FIXED ORDER) =================
     updateDashboardFromStudents();
+    loadGradesFromStudents();        // 🔥 dashboard grades FIX
     populateAttendanceGrades();
 
-    // 🔥 FORCE FORM POPULATION HERE (THIS IS THE FIX)
-setTimeout(() => {
-    loadGradesFromStudents();
-    
-    // force refresh AFTER UI stabilizes
-    setTimeout(() => {
-        loadLearnersFromStudents();
-    }, 300);
+    // ================= FEES MODULE =================
+    loadFeeFilterGrades();          // 🔥 filter grades FIX
+    loadFeeFormYears();             // years for fee form
 
+    // ================= DEFUALTERS =================
+setTimeout(() => {
+  loadDefaulterGrades();
 }, 300);
+
+    // ================= MODULE SYNC =================
+    initAllModules();
+
+    console.log("✅ Students loaded with phones:", allStudents);
 
   });
 }
-// ================= LOAD GRADES (FIXED & STABLE) =================
-function loadGradesFromStudents() {
+// ================= MODULE INITIALIZER =================
+function initAllModules() {
 
-  const gradeSelect = document.getElementById("gradeSelect");
-  const filterGrade = document.getElementById("filterGrade");
+  if (!allStudents || allStudents.length === 0) return;
 
-  // ❌ stop if elements not ready
-  if (!gradeSelect) return;
+  // Academic
+  loadGradesFromStudents();
+  loadLearnersFromStudents();
 
-  // ❌ stop if no students yet
-  if (!allStudents || allStudents.length === 0) {
-    console.warn("No students yet — grades not loaded");
-    return;
+  // Fees
+  loadFeeGradesFromStudents();
+
+  const feeGrade = document.getElementById("feeGrade");
+
+  if (feeGrade) {
+
+    // safe binding (no duplication)
+    feeGrade.onchange = function () {
+      loadLearnersForFees();
+    };
   }
 
-  const grades = new Set();
+  console.log("✅ All modules synced with students");
+}
+window.addFee = async () => {
 
-  // collect unique grades
-  allStudents.forEach(s => {
-    if (s.grade && s.grade.trim() !== "") {
-      grades.add(s.grade.trim());
+  const year =
+    document.getElementById("feeYear").value;
+
+  const grade =
+    document.getElementById("feeGrade").value;
+
+  const studentId =
+    document.getElementById("feeStudent").value;
+
+  const type =
+    document.getElementById("feeType").value;
+
+  const amount =
+    Number(document.getElementById("feeAmount").value);
+
+  const paymentMethod =
+    document.getElementById("paymentMethod").value;
+
+  // ================= VALIDATION =================
+  if (
+    !year ||
+    !grade ||
+    !studentId ||
+    !type ||
+    !amount ||
+    !paymentMethod
+  ) {
+
+    return Swal.fire(
+      "Missing Fields",
+      "Fill all fields",
+      "warning"
+    );
+  }
+
+  // ================= FIND STUDENT =================
+  const student =
+    allStudents.find(s => s.id === studentId);
+
+  if (!student) {
+
+    return Swal.fire(
+      "Error",
+      "Student not found",
+      "error"
+    );
+  }
+
+  // ================= PATH =================
+  const feeRefPath = `fees/${year}/${studentId}`;
+
+  const snap =
+    await get(
+      ref(db, `schools/${schoolId}/${feeRefPath}`)
+    );
+
+  const existing = snap.val() || {};
+
+  const updatedFees = existing.fees || {};
+
+  // ================= INIT CATEGORY =================
+  if (!updatedFees[type]) {
+    updatedFees[type] = [];
+  }
+
+  // ================= STORE TRANSACTION =================
+  updatedFees[type].push({
+
+    amount,
+
+    paymentMethod, // 🔥 NEW
+
+    timestamp: Date.now(),
+
+    recordedBy:
+      localStorage.getItem("username") || "Admin"
+
+  });
+
+  // ================= RECALCULATE TOTAL =================
+  let totalPaid = 0;
+
+  Object.values(updatedFees).forEach(list => {
+
+    if (Array.isArray(list)) {
+
+      list.forEach(item => {
+
+        totalPaid += Number(item.amount || 0);
+
+      });
     }
   });
 
-  // reset dropdown
-  gradeSelect.innerHTML = `<option value="">Select Grade</option>`;
+  const expectedTotal = 10000;
 
-  // filterGrade is optional (only if exists)
-  if (filterGrade) {
-    filterGrade.innerHTML = `<option value="">All Grades</option>`;
+  const balance =
+    expectedTotal - totalPaid;
+
+  // ================= SAVE =================
+  await set(
+    schoolRef(feeRefPath),
+    {
+
+      studentId,
+
+      studentName: student.name,
+
+      parentPhone:
+        student.parentPhone ||
+        student.phone ||
+        student.parentContact ||
+        "",
+
+      grade,
+
+      year,
+
+      fees: updatedFees,
+
+      totalPaid,
+
+      expectedTotal,
+
+      balance,
+
+      updatedAt: Date.now()
+    }
+  );
+
+  // ================= SUCCESS =================
+  Swal.fire(
+    "Saved",
+    "Fee recorded successfully",
+    "success"
+  );
+
+  // ================= RESET =================
+  clearFeeForm();
+
+  loadFees();
+
+  loadFinanceSummary();
+};
+
+
+window.loadFinanceSummary = async () => {
+
+  try {
+const selectedYear =
+  document.getElementById("filterFeeYear")?.value
+  || "2026";
+
+const snapshot = await get(
+  schoolRef(`fees/${selectedYear}`)
+);
+    const data = snapshot.val() || {};
+
+    let totalPaid = 0;
+    let totalBalance = 0;
+    let expected = 0;
+
+    // ================= PAYMENT METHODS =================
+    let cashTotal = 0;
+    let mpesaTotal = 0;
+    let bankTotal = 0;
+
+    Object.values(data).forEach(fee => {
+
+      const feesObj = fee.fees || {};
+
+      // ================= LOOP ALL CATEGORIES =================
+      Object.values(feesObj).forEach(list => {
+
+        if (Array.isArray(list)) {
+
+          list.forEach(item => {
+
+            const amount =
+              Number(item.amount || 0);
+
+            totalPaid += amount;
+
+            // ================= METHOD TOTALS =================
+            const method =
+              item.paymentMethod || "Cash";
+
+            if (method === "Cash") {
+              cashTotal += amount;
+            }
+
+            else if (method === "M-Pesa") {
+              mpesaTotal += amount;
+            }
+
+            else if (method === "Bank") {
+              bankTotal += amount;
+            }
+
+          });
+        }
+      });
+
+      // ================= BALANCE =================
+      totalBalance += Number(
+        fee.balance || 0
+      );
+
+      // ================= EXPECTED =================
+      expected += Number(
+        fee.expectedTotal || 0
+      );
+
+    });
+
+    // ================= MAIN TOTALS =================
+    document.getElementById("totalPaid")
+      .textContent =
+      totalPaid.toLocaleString();
+
+    document.getElementById("totalBalance")
+      .textContent =
+      totalBalance.toLocaleString();
+
+    document.getElementById("totalExpected")
+      .textContent =
+      expected.toLocaleString();
+
+    // ================= METHOD TOTALS =================
+    document.getElementById("cashTotal")
+      .textContent =
+      cashTotal.toLocaleString();
+
+    document.getElementById("mpesaTotal")
+      .textContent =
+      mpesaTotal.toLocaleString();
+
+    document.getElementById("bankTotal")
+      .textContent =
+      bankTotal.toLocaleString();
+
+    console.log(
+      "✅ Finance summary updated"
+    );
+
+  } catch (err) {
+
+    console.error(
+      "Finance summary error:",
+      err
+    );
+  }
+};
+
+window.loadFees = async () => {
+
+const selectedYear =
+  document.getElementById("filterFeeYear")?.value
+  || new Date().getFullYear().toString();
+
+const selectedGrade =
+  document.getElementById("filterFeeGrade")?.value
+  || "";
+const snapshot = await get(
+  schoolRef(`fees/${selectedYear}`)
+);
+  const data = snapshot.val() || {};
+
+  const table = document.getElementById("feesTable");
+  if (!table) return;
+
+  const thead = table.querySelector("thead");
+  const tbody = table.querySelector("tbody");
+
+
+  tbody.innerHTML = "";
+
+  // ===============================
+  // COLLECT ALL FEE TYPES
+  // ===============================
+  const feeTypesSet = new Set();
+
+  Object.values(data).forEach(fee => {
+    const feesObj = fee.fees || {};
+    Object.keys(feesObj).forEach(type => feeTypesSet.add(type));
+  });
+
+  const feeTypes = [...feeTypesSet];
+
+  // ===============================
+  // HEADER
+  // ===============================
+  thead.innerHTML = `
+    <tr>
+      <th>#</th>
+      <th>Learner</th>
+      <th>Grade</th>
+
+      ${feeTypes.map(type => `<th>${type}</th>`).join("")}
+
+      <th>Total Paid</th>
+      <th>Balance</th>
+      <th>Status</th>
+      <th>History</th>
+      <th>Actions</th>
+    </tr>
+  `;
+
+  // ===============================
+  // SAFE HELPERS
+  // ===============================
+  function sumFee(list) {
+    if (!Array.isArray(list)) return Number(list) || 0;
+    return list.reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
   }
 
-  // ❌ if no grades found
-  if (grades.size === 0) {
-    console.warn("No grades found in students");
+  function totalAllFees(feesObj) {
+    return Object.values(feesObj || {}).reduce((sum, list) => {
+      return sum + sumFee(list);
+    }, 0);
+  }
+
+  // ===============================
+  // TOTALS
+  // ===============================
+  const categoryTotals = {};
+  feeTypes.forEach(t => categoryTotals[t] = 0);
+
+  let count = 0;
+
+Object.entries(data).forEach(([feeId, fee]) => {
+
+  // ================= FILTER BY GRADE =================
+  if (selectedGrade && fee.grade !== selectedGrade) return;
+
+  count++;
+
+  const feesObj = fee.fees || {};
+    feeTypes.forEach(type => {
+      categoryTotals[type] += sumFee(feesObj[type]);
+    });
+
+    const student = allStudents.find(s => s.id === fee.studentId);
+
+    const displayName = student
+      ? `${student.name} / ${student.parentPhone || ""}`
+      : fee.studentName || "-";
+
+    // ===============================
+    // STATUS
+    // ===============================
+    let status = "OWING";
+    if ((fee.balance || 0) <= 0) status = "PAID";
+    else if ((fee.totalPaid || 0) > 0) status = "PARTIAL";
+
+    const statusColor =
+      status === "PAID" ? "green" :
+      status === "PARTIAL" ? "orange" : "red";
+
+    // ===============================
+    // ROW
+    // ===============================
+    tbody.innerHTML += `
+      <tr>
+        <td>${count}</td>
+        <td>${displayName}</td>
+        <td>${fee.grade || "-"}</td>
+
+        ${feeTypes.map(type => `
+          <td>${sumFee(feesObj[type])}</td>
+        `).join("")}
+
+        <td>${totalAllFees(feesObj)}</td>
+        <td>${fee.balance || 0}</td>
+
+        <td class="${status === 'PAID' ? 'status-paid' : status === 'PARTIAL' ? 'status-partial' : 'status-owing'}">
+          ${status}
+        </td>
+
+        <!-- HISTORY BUTTON -->
+        <td>
+          <button onclick='openFeeHistory(${JSON.stringify(fee)})'
+            style="background:#111827;color:white;padding:6px 10px;border-radius:6px;width:100%;">
+            📜 History
+          </button>
+        </td>
+
+        <!-- ACTIONS (CLEAN STACK LIKE YOUR FRIEND) -->
+   <td>
+  <div class="dropdown-actions">
+
+    <button class="action-toggle">
+      ⚙ Actions
+    </button>
+
+    <div class="dropdown-menu">
+
+      <button onclick='openEditFeeModal("${feeId}")'>
+        ✏️ Edit
+      </button>
+
+      <button onclick='generateReceipt(${JSON.stringify(fee)})'>
+        🧾 Receipt
+      </button>
+
+      <button onclick="sendSingleSMS('${fee.studentId}')">
+        📩 SMS
+      </button>
+
+      <button onclick='openRefundModal("${feeId}")'>
+        💸 Refund
+      </button>
+
+      <button onclick="deleteLearnerFee('${feeId}', '${fee.studentName}')">
+        🗑 Delete
+      </button>
+
+    </div>
+  </div>
+</td>
+      </tr>
+    `;
+  });
+
+  // ===============================
+  // FOOTER TOTALS
+  // ===============================
+  let footerRow = `
+    <tr style="font-weight:bold;background:#f3f4f6;">
+      <td colspan="3">TOTAL</td>
+  `;
+
+  feeTypes.forEach(type => {
+    footerRow += `<td>${categoryTotals[type] || 0}</td>`;
+  });
+
+  footerRow += `
+      <td colspan="5"></td>
+    </tr>
+  `;
+
+  tbody.innerHTML += footerRow;
+
+  console.log("✅ Fees loaded (clean structured buttons version)");
+};
+window.sendSingleSMS = async (studentId) => {
+
+  const snap = await get(schoolRef(`fees/${studentId}`));
+  const fee = snap.val();
+
+  if (!fee) return Swal.fire("Error", "No fee record found", "error");
+
+  const phone = fee.parentPhone;
+  if (!phone) return Swal.fire("Error", "No phone number", "error");
+
+  const message =
+    `Dear Parent, ${fee.studentName} owes KES ${fee.balance}. Please clear school fees.`;
+
+  await sendSMS(phone, message);
+
+  Swal.fire("Sent", "SMS sent successfully", "success");
+};
+
+let feeChartInstance, gradeChartInstance, typeChartInstance;
+
+window.loadDashboardCharts = async () => {
+
+  const selectedYear =
+  document.getElementById("filterFeeYear")?.value
+  || "2026";
+
+const snap = await get(
+  schoolRef(`fees/${selectedYear}`)
+);
+  const data = snap.val() || {};
+
+  let totalPaid = 0;
+  let totalExpected = 0;
+  let totalBalance = 0;
+
+  const gradeMap = {};
+  const typeMap = {};
+
+  Object.values(data).forEach(fee => {
+
+    const paid = Number(fee.totalPaid || 0);
+    const expected = Number(fee.expectedTotal || 0);
+    const balance = Number(fee.balance || 0);
+
+    totalPaid += paid;
+    totalExpected += expected;
+    totalBalance += balance;
+
+    // ================= GRADE =================
+    const grade = fee.grade || "Unknown";
+    gradeMap[grade] = (gradeMap[grade] || 0) + paid;
+
+    // ================= FEE TYPES =================
+    const feesObj = fee.fees || {};
+
+    Object.entries(feesObj).forEach(([type, value]) => {
+
+      if (Array.isArray(value)) {
+        value.forEach(v => {
+          typeMap[type] = (typeMap[type] || 0) + Number(v.amount || 0);
+        });
+      } else {
+        typeMap[type] = (typeMap[type] || 0) + Number(value || 0);
+      }
+    });
+
+  });
+
+  // ================= MAIN FEES CHART =================
+  const feeCtx = document.getElementById("feeChart");
+  if (feeCtx) {
+    if (feeChartInstance) feeChartInstance.destroy();
+
+    feeChartInstance = new Chart(feeCtx, {
+      type: "bar",
+      data: {
+        labels: ["Paid", "Expected", "Balance"],
+        datasets: [{
+          label: "Fees Overview",
+          data: [totalPaid, totalExpected, totalBalance],
+          backgroundColor: ["#16a34a", "#2563eb", "#dc2626"]
+        }]
+      }
+    });
+  }
+
+  // ================= GRADE CHART =================
+  const gradeCtx = document.getElementById("feeGradeChart");
+
+  if (gradeCtx) {
+    if (gradeChartInstance) gradeChartInstance.destroy();
+
+    gradeChartInstance = new Chart(gradeCtx, {
+      type: "pie",
+      data: {
+        labels: Object.keys(gradeMap),
+        datasets: [{
+          data: Object.values(gradeMap),
+          backgroundColor: ["#2563eb", "#16a34a", "#f59e0b", "#dc2626", "#8b5cf6"]
+        }]
+      }
+    });
+  }
+
+  // ================= TYPE CHART =================
+  const typeCtx = document.getElementById("typeChart");
+
+  if (typeCtx) {
+    if (typeChartInstance) typeChartInstance.destroy();
+
+    typeChartInstance = new Chart(typeCtx, {
+      type: "bar",
+      data: {
+        labels: Object.keys(typeMap),
+        datasets: [{
+          label: "Fee Types",
+          data: Object.values(typeMap),
+          backgroundColor: "#0ea5e9"
+        }]
+      }
+    });
+  }
+
+  console.log("📊 Dashboard charts loaded");
+};
+
+window.showDefaulters = async () => {
+
+  const selectedYear =
+  document.getElementById("filterFeeYear")?.value
+  || "2026";
+
+const snap = await get(
+  schoolRef(`fees/${selectedYear}`)
+);
+  const data = snap.val() || {};
+
+  const tbody = document.getElementById("defaultersBody");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  const selectedGrade = document.getElementById("defGrade")?.value || "";
+
+  let count = 0;
+  let totalOwed = 0;
+
+  Object.values(data).forEach(fee => {
+
+    const balance = Number(fee.balance || 0);
+
+    // 🚨 only defaulters
+    if (balance <= 0) return;
+
+    // 🎯 grade filter (FIXED)
+    if (selectedGrade && fee.grade !== selectedGrade) return;
+
+    count++;
+    totalOwed += balance;
+
+    const student = allStudents.find(s => s.id === fee.studentId);
+
+    const phone =
+      student?.parentPhone ||
+      student?.phone ||
+      student?.parentContact ||
+      "";
+
+    const name = student
+      ? `${student.name} / ${phone}`
+      : fee.studentName;
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${count}</td>
+        <td>${name}</td>
+        <td>${fee.grade || "-"}</td>
+        <td>${fee.totalPaid || 0}</td>
+        <td style="color:red;font-weight:bold;">${balance}</td>
+
+        <td style="color:red;font-weight:bold;">OWING</td>
+
+        <td style="display:flex;gap:5px;">
+
+          <!-- 📲 M-PESA REQUEST -->
+          <button onclick="requestMpesaPayment('${phone}', '${fee.studentName}', ${balance})"
+            style="background:#16a34a;color:white;padding:5px 8px;border-radius:6px;">
+            📲 M-Pesa
+          </button>
+
+        </td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("defCount").textContent = count;
+  document.getElementById("defTotal").textContent = totalOwed.toLocaleString();
+
+  document.getElementById("defaultersModal").style.display = "flex";
+};
+
+
+window.sendPaymentPrompt = async (studentId) => {
+
+  const student = allStudents.find(s => s.id === studentId);
+
+  if (!student) {
+    return Swal.fire("Error", "Student not found", "error");
+  }
+
+  const phone = student.parentPhone || student.phone || student.parentContact;
+
+  if (!phone) {
+    return Swal.fire("Error", "No parent phone found", "warning");
+  }
+
+  // find fee record
+  const snap = await get(schoolRef("fees"));
+  const data = snap.val() || {};
+
+  const feeRecord = Object.values(data).find(f => f.studentId === studentId);
+
+  if (!feeRecord) {
+    return Swal.fire("Error", "Fee record not found", "error");
+  }
+
+  const message =
+    `Dear Parent, ${student.name} owes KES ${feeRecord.balance}. ` +
+    `Kindly clear school fees. Thank you.`;
+
+  await sendSMS(phone, message);
+
+  Swal.fire("Sent", "Payment reminder sent successfully", "success");
+};
+function loadDefaulterGrades() {
+
+  const select = document.getElementById("defGrade");
+  if (!select) return;
+
+  if (!allStudents || allStudents.length === 0) {
+    console.warn("⏳ Defaulter grades waiting for students...");
+    setTimeout(loadDefaulterGrades, 300);
     return;
   }
 
-  // populate dropdowns
+  const grades = [...new Set(
+    allStudents
+      .map(s => (s.grade || "").trim())
+      .filter(Boolean)
+  )];
+
+  select.innerHTML = `<option value="">All Grades</option>`;
+
   grades.forEach(g => {
+    select.innerHTML += `<option value="${g}">${g}</option>`;
+  });
+
+  console.log("✅ Defaulter grades loaded:", grades);
+}
+window.sendDefaulterSMS = async () => {
+
+  const selectedYear =
+  document.getElementById("filterFeeYear")?.value
+  || "2026";
+
+const snap = await get(
+  schoolRef(`fees/${selectedYear}`)
+);
+  const data = snap.val() || {};
+
+  let sent = 0;
+
+  Object.values(data).forEach(fee => {
+
+    const balance = Number(fee.balance || 0);
+    if (balance <= 0) return;
+
+    const phone = fee.parentPhone;
+    if (!phone) return;
+
+    const message =
+      `Dear Parent, ${fee.studentName} owes KES ${balance}. Please clear school fees.`;
+
+    sendSMS(phone, message);
+    sent++;
+  });
+
+  Swal.fire("Done", `${sent} SMS sent`, "success");
+};
+
+
+window.openFeeHistory = function (fee) {
+
+  const modal =
+    document.getElementById("feeHistoryModal");
+
+  const content =
+    document.getElementById("feeHistoryContent");
+
+  const feesObj = fee.fees || {};
+
+  let rows = [];
+
+  // ================= LOOP THROUGH FEES =================
+  Object.entries(feesObj).forEach(([type, payments]) => {
+
+    if (!Array.isArray(payments)) return;
+
+    payments.forEach(p => {
+
+      const date =
+        new Date(p.timestamp || Date.now());
+
+      // ================= REFUND COLOR =================
+      const amountColor =
+        Number(p.amount) < 0
+          ? "red"
+          : "green";
+
+      const label =
+        Number(p.amount) < 0
+          ? "REFUND"
+          : "PAYMENT";
+
+      rows.push(`
+
+        <tr>
+
+          <td style="padding:8px;border:1px solid #ddd;">
+            ${type}
+          </td>
+
+          <td style="
+              padding:8px;
+              border:1px solid #ddd;
+              color:${amountColor};
+              font-weight:bold;
+            ">
+
+            ${label}: KES ${Math.abs(Number(p.amount || 0))}
+
+          </td>
+
+          <td style="padding:8px;border:1px solid #ddd;">
+            ${p.paymentMethod || "-"}
+          </td>
+
+          <td style="padding:8px;border:1px solid #ddd;">
+            ${date.toLocaleDateString()}
+          </td>
+
+          <td style="padding:8px;border:1px solid #ddd;">
+            ${date.toLocaleTimeString()}
+          </td>
+
+        </tr>
+      `);
+
+    });
+  });
+
+  // ================= SORT NEWEST FIRST =================
+  rows.reverse();
+
+  // ================= HTML =================
+  let html = `
+
+    <div style="max-height:500px;overflow:auto;">
+
+      <h2 style="margin-bottom:10px;">
+        📜 Payment History
+      </h2>
+
+      <p>
+        <b>Student:</b>
+        ${fee.studentName || "-"}
+      </p>
+
+      <p>
+        <b>Grade:</b>
+        ${fee.grade || "-"}
+      </p>
+
+      <hr>
+
+      <table style="
+        width:100%;
+        border-collapse:collapse;
+        font-size:14px;
+      ">
+
+        <thead>
+
+          <tr style="
+            background:#f3f4f6;
+            position:sticky;
+            top:0;
+          ">
+
+            <th style="padding:8px;border:1px solid #ddd;">
+              Fee Type
+            </th>
+
+            <th style="padding:8px;border:1px solid #ddd;">
+              Amount
+            </th>
+
+            <th style="padding:8px;border:1px solid #ddd;">
+              Method
+            </th>
+
+            <th style="padding:8px;border:1px solid #ddd;">
+              Date
+            </th>
+
+            <th style="padding:8px;border:1px solid #ddd;">
+              Time
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${rows.length
+            ? rows.join("")
+            : `
+              <tr>
+                <td colspan="5"
+                  style="
+                    text-align:center;
+                    padding:15px;
+                    border:1px solid #ddd;
+                  ">
+                  No payment history found
+                </td>
+              </tr>
+            `
+          }
+
+        </tbody>
+
+      </table>
+
+      <hr>
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        margin-top:10px;
+        font-weight:bold;
+      ">
+
+        <span>
+          💰 Total Paid:
+          KES ${fee.totalPaid || 0}
+        </span>
+
+        <span>
+          ⚠️ Balance:
+          KES ${fee.balance || 0}
+        </span>
+
+      </div>
+
+    </div>
+  `;
+
+  content.innerHTML = html;
+
+  modal.style.display = "flex";
+};
+window.closeFeeHistory = function () {
+  document.getElementById("feeHistoryModal").style.display = "none";
+};
+window.deleteLearnerFee = async (feeId, studentName) => {
+
+  try {
+
+    const confirm = await Swal.fire({
+      title: "Delete Fee Record?",
+      text: `Remove all fee records for ${studentName}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, Delete"
+    });
+
+    if (!confirm.isConfirmed) return;
+
+    // 🔥 DELETE FROM FIREBASE
+    await remove(schoolRef(`fees/${feeId}`));
+
+    // 🔥 RELOAD DATA
+    await loadFees();
+    await loadFinanceSummary();
+    await loadSchoolDashboard();
+
+    Swal.fire(
+      "Deleted",
+      `${studentName}'s fee record removed successfully.`,
+      "success"
+    );
+
+  } catch (err) {
+
+    console.error("Delete fee error:", err);
+
+    Swal.fire(
+      "Error",
+      "Failed to delete fee record",
+      "error"
+    );
+  }
+};
+
+// ================= FEES: GRADES =================
+function loadFeeGradesFromStudents() {
+
+  const feeGrade = document.getElementById("feeGrade");
+  if (!feeGrade) return;
+
+  const grades = [...new Set(
+    (allStudents || [])
+      .map(s => s.grade?.trim())
+      .filter(Boolean)
+  )];
+
+  feeGrade.innerHTML = `<option value="">Select Grade</option>`;
+
+  grades.forEach(g => {
+    feeGrade.appendChild(new Option(g, g));
+  });
+}
+window.loadLearnersForFees = function () {
+
+  const gradeEl = document.getElementById("feeGrade");
+  const learnerSelect = document.getElementById("feeStudent");
+
+  if (!gradeEl || !learnerSelect) return;
+
+  const grade = gradeEl.value.trim();
+
+  learnerSelect.innerHTML = `<option value="">Select Learner</option>`;
+
+  if (!grade) return;
+
+  if (!allStudents || !allStudents.length) return;
+
+  const learners = allStudents.filter(
+    s => (s.grade || "").trim() === grade
+  );
+
+  learners.forEach(student => {
+
+    const option = document.createElement("option");
+
+    option.value = student.id;
+
+    const phone = (student.parentPhone || "").trim();
+
+    option.textContent = phone
+      ? `${student.name} / ${phone}`
+      : student.name;
+
+    option.dataset.phone = phone;
+
+    learnerSelect.appendChild(option);
+  });
+
+  console.log("✅ Learners loaded with phones:", learners);
+};
+
+function clearFeeForm() {
+
+  // DO NOT clear year (important fix)
+  // document.getElementById("feeYear").value = "";
+
+  document.getElementById("feeGrade").value = "";
+
+  document.getElementById("feeStudent").innerHTML =
+    `<option value="">Select Learner</option>`;
+
+  document.getElementById("feeType").value = "";
+
+  document.getElementById("feeAmount").value = "";
+
+  document.getElementById("paymentMethod").value = "";
+}
+
+window.loadFeeFormYears = function () {
+
+  const select =
+    document.getElementById("feeYear");
+
+  if (!select) return;
+
+  const currentYear =
+    new Date().getFullYear();
+
+  const years = [
+
+    (currentYear - 1).toString(),
+
+    currentYear.toString(),
+
+    (currentYear + 1).toString()
+
+  ];
+
+  select.innerHTML =
+    `<option value="">-- Select Year --</option>`;
+
+  years.forEach(year => {
+
+    select.innerHTML += `
+      <option value="${year}">
+        ${year}
+      </option>
+    `;
+  });
+
+  select.value = currentYear.toString();
+
+  console.log("✅ Fee form years loaded:", years);
+};
+// ================= INIT =================
+document.addEventListener("DOMContentLoaded", () => {
+  loadFees();
+});
+window.openEditFeeModal = async (feeId) => {
+
+  try {
+
+    // ================= FETCH RECORD =================
+    const snap = await get(schoolRef(`fees/${feeId}`));
+
+    if (!snap.exists()) {
+      return Swal.fire("Error", "Fee record not found", "error");
+    }
+
+    const fee = snap.val();
+    const feesObj = fee.fees || {};
+
+    // ================= FEE TYPES =================
+    const feeTypes = Object.keys(feesObj);
+
+    if (!feeTypes.length) {
+      return Swal.fire("Error", "No fee categories found", "error");
+    }
+
+    // ================= BUILD OPTIONS =================
+    let optionsHtml = "";
+
+    feeTypes.forEach(type => {
+
+      let total = 0;
+
+      if (Array.isArray(feesObj[type])) {
+
+        total = feesObj[type].reduce((sum, p) => {
+          return sum + Number(p.amount || 0);
+        }, 0);
+
+      }
+
+      optionsHtml += `
+        <option value="${type}">
+          ${type} (KES ${total})
+        </option>
+      `;
+    });
+
+    // ================= POPUP =================
+    const result = await Swal.fire({
+
+      title: "✏️ Edit Learner Fee",
+
+      html: `
+
+        <div style="text-align:left;">
+
+          <label style="font-weight:bold;">
+            Select Fee Category
+          </label>
+
+          <select id="editFeeType"
+            class="swal2-input">
+
+            ${optionsHtml}
+
+          </select>
+
+          <label style="font-weight:bold;">
+            New Amount
+          </label>
+
+          <input
+            type="number"
+            id="editFeeAmount"
+            class="swal2-input"
+            placeholder="Enter new amount"
+          >
+
+        </div>
+      `,
+
+      confirmButtonText: "💾 Save Changes",
+      showCancelButton: true,
+
+      preConfirm: () => {
+
+        const type =
+          document.getElementById("editFeeType").value;
+
+        const amount =
+          Number(document.getElementById("editFeeAmount").value);
+
+        if (!type || isNaN(amount) || amount < 0) {
+
+          Swal.showValidationMessage(
+            "Enter valid amount"
+          );
+
+          return false;
+        }
+
+        return {
+          type,
+          amount
+        };
+      }
+    });
+
+    // ================= CANCEL =================
+    if (!result.isConfirmed) return;
+
+    const { type, amount } = result.value;
+
+    // ================= REPLACE CATEGORY TOTAL =================
+    feesObj[type] = [
+      {
+        amount,
+        timestamp: Date.now(),
+        edited: true
+      }
+    ];
+
+    // ================= RECALCULATE TOTALS =================
+    let totalPaid = 0;
+
+    Object.values(feesObj).forEach(list => {
+
+      if (Array.isArray(list)) {
+
+        list.forEach(item => {
+
+          totalPaid += Number(item.amount || 0);
+
+        });
+      }
+    });
+
+    const expectedTotal =
+      Number(fee.expectedTotal || 10000);
+
+    const balance =
+      expectedTotal - totalPaid;
+
+    // ================= SAVE =================
+    await update(
+      schoolRef(`fees/${feeId}`),
+      {
+        fees: feesObj,
+        totalPaid,
+        balance,
+        updatedAt: Date.now()
+      }
+    );
+
+    // ================= SUCCESS =================
+    Swal.fire(
+      "Updated",
+      "Fee updated successfully",
+      "success"
+    );
+
+    // ================= RELOAD =================
+    loadFees();
+    loadFinanceSummary();
+
+  } catch (err) {
+
+    console.error(err);
+
+    Swal.fire(
+      "Error",
+      "Failed to edit fee",
+      "error"
+    );
+  }
+};
+window.openRefundModal = async (feeId) => {
+
+  try {
+
+    // ================= FETCH RECORD =================
+    const snap = await get(schoolRef(`fees/${feeId}`));
+
+    if (!snap.exists()) {
+      return Swal.fire(
+        "Error",
+        "Fee record not found",
+        "error"
+      );
+    }
+
+    const fee = snap.val();
+
+    const feesObj = fee.fees || {};
+
+    // ================= BUILD FEE TYPES =================
+    let optionsHtml = "";
+
+    Object.keys(feesObj).forEach(type => {
+
+      let total = 0;
+
+      if (Array.isArray(feesObj[type])) {
+
+        total = feesObj[type].reduce((sum, item) => {
+          return sum + Number(item.amount || 0);
+        }, 0);
+
+      }
+
+      optionsHtml += `
+        <option value="${type}">
+          ${type} (KES ${total})
+        </option>
+      `;
+    });
+
+    // ================= POPUP =================
+    const result = await Swal.fire({
+
+      title: "💸 Refund Learner Fee",
+
+      html: `
+
+        <div style="text-align:left;">
+
+          <label style="font-weight:bold;">
+            Select Fee Category
+          </label>
+
+          <select id="refundType"
+            class="swal2-input">
+
+            ${optionsHtml}
+
+          </select>
+
+          <label style="font-weight:bold;">
+            Refund Amount
+          </label>
+
+          <input
+            type="number"
+            id="refundAmount"
+            class="swal2-input"
+            placeholder="Enter refund amount"
+          >
+
+          <label style="font-weight:bold;">
+            Reason
+          </label>
+
+          <input
+            type="text"
+            id="refundReason"
+            class="swal2-input"
+            placeholder="Reason for refund"
+          >
+
+        </div>
+      `,
+
+      confirmButtonText: "💸 Process Refund",
+      showCancelButton: true,
+
+      preConfirm: () => {
+
+        const type =
+          document.getElementById("refundType").value;
+
+        const amount =
+          Number(document.getElementById("refundAmount").value);
+
+        const reason =
+          document.getElementById("refundReason").value;
+
+        if (!type || !amount || amount <= 0) {
+
+          Swal.showValidationMessage(
+            "Enter valid refund amount"
+          );
+
+          return false;
+        }
+
+        return {
+          type,
+          amount,
+          reason
+        };
+      }
+    });
+
+    if (!result.isConfirmed) return;
+
+    const {
+      type,
+      amount,
+      reason
+    } = result.value;
+
+    // ================= CURRENT CATEGORY TOTAL =================
+    let currentTotal = 0;
+
+    if (Array.isArray(feesObj[type])) {
+
+      currentTotal = feesObj[type].reduce((sum, item) => {
+        return sum + Number(item.amount || 0);
+      }, 0);
+    }
+
+    // ================= VALIDATE REFUND =================
+    if (amount > currentTotal) {
+
+      return Swal.fire(
+        "Error",
+        `Refund exceeds paid amount (KES ${currentTotal})`,
+        "error"
+      );
+    }
+
+    // ================= RECORD REFUND =================
+    feesObj[type].push({
+
+      amount: -Math.abs(amount), // negative transaction
+
+      timestamp: Date.now(),
+
+      refund: true,
+
+      reason: reason || "Refund"
+
+    });
+
+    // ================= RECALCULATE TOTALS =================
+    let totalPaid = 0;
+
+    Object.values(feesObj).forEach(list => {
+
+      if (Array.isArray(list)) {
+
+        list.forEach(item => {
+
+          totalPaid += Number(item.amount || 0);
+
+        });
+      }
+    });
+
+    const expectedTotal =
+      Number(fee.expectedTotal || 10000);
+
+    const balance =
+      expectedTotal - totalPaid;
+
+    // ================= SAVE =================
+    await update(
+      schoolRef(`fees/${feeId}`),
+      {
+        fees: feesObj,
+        totalPaid,
+        balance,
+        updatedAt: Date.now()
+      }
+    );
+
+    // ================= SUCCESS =================
+    Swal.fire(
+      "Refunded",
+      "Refund processed successfully",
+      "success"
+    );
+
+    // ================= RELOAD =================
+    loadFees();
+    loadFinanceSummary();
+
+  } catch (err) {
+
+    console.error(err);
+
+    Swal.fire(
+      "Error",
+      "Refund failed",
+      "error"
+    );
+  }
+};
+window.saveEditedFee = async () => {
+
+  if (!currentEditFeeId || !currentEditData) return;
+
+  const inputs = document.querySelectorAll("#editFeeContent input");
+
+  const updatedFees = currentEditData.fees || {};
+
+  let totalPaid = 0;
+
+  inputs.forEach(input => {
+
+    const type = input.dataset.type;
+    const newAmount = Number(input.value) || 0;
+
+    updatedFees[type] = [
+      {
+        amount: newAmount,
+        timestamp: Date.now(),
+        edited: true
+      }
+    ];
+
+    totalPaid += newAmount;
+  });
+
+  const expected = currentEditData.expectedTotal || 10000;
+  const balance = expected - totalPaid;
+
+  await set(schoolRef(`fees/${currentEditFeeId}`), {
+    ...currentEditData,
+    fees: updatedFees,
+    totalPaid,
+    balance,
+    updatedAt: Date.now()
+  });
+
+  closeEditFeeModal();
+
+  loadFees();
+  loadFinanceSummary();
+
+  Swal.fire("Updated", "Fee updated successfully", "success");
+};
+window.closeEditFeeModal = () => {
+  document.getElementById("editFeeModal").style.display = "none";
+  currentEditFeeId = null;
+  currentEditData = null;
+};
+window.generateReceipt = function (fee) {
+
+  const receiptWindow = window.open("", "_blank");
+
+  if (!receiptWindow) {
+    alert("Popup blocked! Please allow popups to print receipt.");
+    return;
+  }
+
+  // ================= DATA SAFETY =================
+  const studentName = fee.studentName || "Unknown Student";
+  const grade = fee.grade || "N/A";
+  const year = fee.year || "N/A";
+
+  const amount =
+    Number(fee.amount) ||
+    Number(fee.paid) ||
+    Number(fee.totalPaid) ||
+    0;
+
+  const balance = Number(fee.balance || 0);
+  const status = balance <= 0 ? "PAID" : "PENDING";
+
+  const feesObj = fee.fees || {};
+
+const feeBreakdown = Object.entries(feesObj)
+  .map(([key, val]) => {
+
+    let total = 0;
+
+    // ================= SAFE HANDLING =================
+    if (Array.isArray(val)) {
+
+      total = val.reduce((sum, item) => {
+        return sum + Number(item.amount || 0);
+      }, 0);
+
+    } else if (typeof val === "number") {
+
+      total = val;
+
+    } else if (val && typeof val === "object") {
+
+      total = Number(val.amount || 0);
+
+    }
+
+    return `
+      <div class="row">
+        <b>${key}:</b> KES ${total}
+      </div>
+    `;
+
+  })
+  .join("");
+
+  const receiptId = `REC-${year}-${Date.now().toString().slice(-6)}`;
+  const date = new Date().toLocaleString();
+
+  // ================= SCHOOL INFO =================
+  const schoolName =
+    localStorage.getItem("schoolName") ||
+    fee.schoolName ||
+    "SCHOOL MANAGEMENT SYSTEM";
+
+  const motto =
+    localStorage.getItem("schoolMotto") ||
+    "Education for Excellence";
+
+  // ================= PARENT PHONE =================
+  const parentPhone =
+    fee.parentPhone ||
+    fee.phone ||
+    fee.parentContact ||
+    null;
+
+  // ================= SMS MESSAGE =================
+  if (parentPhone) {
+
+    const message =
+      `Dear Parent, payment received for ${studentName}. ` +
+      `Amount: KES ${amount}, Balance: KES ${balance}. ` +
+      `Receipt ID: ${receiptId}. Thank you.`;
+
+    sendSMS(parentPhone, message);
+  }
+
+  // ================= RECEIPT UI =================
+  receiptWindow.document.write(`
+    <html>
+    <head>
+      <title>Receipt</title>
+
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          padding: 30px;
+          background: #f5f5f5;
+        }
+
+        .box {
+          border: 2px solid #000;
+          padding: 25px;
+          width: 380px;
+          margin: auto;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+          text-align: center;
+          margin: 0;
+        }
+
+        .motto {
+          text-align: center;
+          font-size: 12px;
+          margin-bottom: 10px;
+        }
+
+        hr {
+          margin: 10px 0;
+        }
+
+        .row {
+          margin: 6px 0;
+          font-size: 14px;
+        }
+
+        .status {
+          font-weight: bold;
+          color: ${status === "PAID" ? "green" : "red"};
+        }
+
+        .footer {
+          margin-top: 20px;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .btn {
+          margin-top: 15px;
+          padding: 8px 12px;
+          border: none;
+          background: #2563eb;
+          color: white;
+          cursor: pointer;
+          border-radius: 6px;
+          width: 100%;
+        }
+      </style>
+
+    </head>
+
+    <body>
+
+      <div class="box">
+
+        <h2>🏫 ${schoolName}</h2>
+        <div class="motto">${motto}</div>
+
+        <hr>
+
+        <div class="row"><b>Receipt ID:</b> ${receiptId}</div>
+        <div class="row"><b>Date:</b> ${date}</div>
+
+        <hr>
+
+        <div class="row"><b>Student:</b> ${studentName}</div>
+        <div class="row"><b>Grade:</b> ${grade}</div>
+        <div class="row"><b>Year:</b> ${year}</div>
+
+        <hr>
+
+        <h4>Fee Breakdown</h4>
+        ${feeBreakdown || `<div class="row">No breakdown available</div>`}
+
+        <hr>
+
+        <div class="row"><b>Total Paid:</b> KES ${amount}</div>
+        <div class="row"><b>Balance:</b> KES ${balance}</div>
+        <div class="row"><b>Status:</b> <span class="status">${status}</span></div>
+
+        <hr>
+
+        <div class="footer">
+          Thank you for your payment 🙏
+        </div>
+
+        <button class="btn" onclick="window.print()">🖨️ Print Receipt</button>
+
+      </div>
+
+    </body>
+    </html>
+  `);
+
+  receiptWindow.document.close();
+
+  receiptWindow.onload = function () {
+    receiptWindow.print();
+  };
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadFinanceSummary();
+});
+
+window.loadFeeYears = async function () {
+
+  const select =
+    document.getElementById("filterFeeYear");
+
+  if (!select) return;
+
+  try {
+
+    // ================= FETCH FEES ROOT =================
+    const snap = await get(
+      schoolRef("fees")
+    );
+
+    const data = snap.val() || {};
+
+    // ================= DYNAMIC YEARS =================
+    const currentYear =
+      new Date().getFullYear();
+
+    const years = [
+
+      ...new Set([
+
+        ...Object.keys(data),
+
+        currentYear.toString(),
+
+        (currentYear + 1).toString()
+
+      ])
+
+    ];
+
+    // ================= SORT DESC =================
+    years.sort((a, b) => b - a);
+
+    // ================= BUILD OPTIONS =================
+    select.innerHTML = "";
+
+    years.forEach(year => {
+
+      select.innerHTML += `
+        <option value="${year}">
+          ${year}
+        </option>
+      `;
+    });
+
+    // ================= DEFAULT =================
+    select.value = currentYear.toString();
+
+    console.log(
+      "✅ Dynamic fee years loaded:",
+      years
+    );
+
+  } catch (err) {
+
+    console.error(
+      "Failed to load fee years:",
+      err
+    );
+  }
+};
+
+
+async function sendSMS(phone, message) {
+
+  try {
+
+    // 🔥 REPLACE THIS URL WITH YOUR SMS PROVIDER
+    const res = await fetch("https://YOUR_SMS_API_ENDPOINT/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        to: phone,
+        message: message
+      })
+    });
+
+    const data = await res.json();
+    console.log("📩 SMS sent:", data);
+
+  } catch (err) {
+    console.error("❌ SMS failed:", err);
+  }
+}
+
+window.sendNotifications = async () => {
+
+  const feesSnap = await get(schoolRef("fees"));
+  const fees = feesSnap.val() || {};
+
+  const messages = [];
+
+  Object.values(fees).forEach(f => {
+
+    if (f.balance > 0) {
+
+      messages.push({
+        to: f.studentName,
+        message: `Dear Parent, ${f.studentName} owes KES ${f.balance}`
+      });
+    }
+  });
+
+  console.log("📩 Notification Queue:", messages);
+
+  alert("Notifications prepared (check console)");
+};
+function initERP() {
+
+  loadSchoolDashboard();
+  loadPayroll();
+  loadFees();
+
+  console.log("🚀 ERP System Fully Initialized");
+}
+window.loadFeeFilterGrades = function () {
+
+  const select =
+    document.getElementById("filterFeeGrade");
+
+  if (!select) return;
+
+  const waitForStudents = setInterval(() => {
+
+    if (allStudents && allStudents.length > 0) {
+
+      clearInterval(waitForStudents);
+
+      const grades = [
+        ...new Set(
+          allStudents
+            .map(s => (s.grade || "").trim())
+            .filter(Boolean)
+        )
+      ];
+
+      select.innerHTML =
+        `<option value="">All Grades</option>`;
+
+      grades.forEach(grade => {
+
+        select.innerHTML += `
+          <option value="${grade}">
+            ${grade}
+          </option>
+        `;
+      });
+
+      console.log("✅ Grades loaded:", grades);
+    }
+
+  }, 200);
+};
+
+function loadGradesFromStudents() {
+
+  const gradeSelect =
+    document.getElementById("gradeSelect");
+
+  const filterGrade =
+    document.getElementById("filterGrade");
+
+  // ================= SAFETY CHECK =================
+  if (!gradeSelect) return;
+
+  // 🔥 WAIT UNTIL STUDENTS ARE READY
+  if (!allStudents || allStudents.length === 0) {
+
+    console.warn("⏳ Waiting for students before loading grades...");
+
+    setTimeout(loadGradesFromStudents, 300);
+
+    return;
+  }
+
+  // ================= COLLECT GRADES =================
+  const grades = [
+    ...new Set(
+      allStudents
+        .map(s => (s.grade || "").trim())
+        .filter(Boolean)
+    )
+  ];
+
+  // ================= RESET DROPDOWNS =================
+  gradeSelect.innerHTML =
+    `<option value="">Select Grade</option>`;
+
+  if (filterGrade) {
+    filterGrade.innerHTML =
+      `<option value="">All Grades</option>`;
+  }
+
+  // ================= EMPTY CHECK =================
+  if (grades.length === 0) {
+    console.warn("⚠️ No grades found in students");
+    return;
+  }
+
+  // ================= POPULATE =================
+  grades.forEach(g => {
+
     gradeSelect.appendChild(new Option(g, g));
 
     if (filterGrade) {
@@ -2411,15 +4767,102 @@ function loadGradesFromStudents() {
     }
   });
 
-  console.log("✅ Grades loaded:", [...grades]);
+  console.log("✅ Grades loaded:", grades);
 
-// AUTO TRIGGER FIRST REFRESH
-setTimeout(() => {
-  loadLearnersFromStudents();
-}, 200);
+  // ================= SAFE TRIGGER =================
+  setTimeout(() => {
+    if (typeof loadLearnersFromStudents === "function") {
+      loadLearnersFromStudents();
+    }
+  }, 200);
 }
+// ==============================
+// 💰 LOAD FEE GRADES
+// ==============================
+window.loadFeeGrades = async function () {
 
+  const feeGrade = document.getElementById("feeGrade");
 
+  if (!feeGrade) return;
+
+  feeGrade.innerHTML = `
+    <option value="">-- Select Grade --</option>
+  `;
+
+  try {
+
+    const snap = await get(schoolRef("students"));
+
+    if (!snap.exists()) return;
+
+    const grades = new Set();
+
+    snap.forEach(child => {
+      const student = child.val();
+
+      if (student.grade) {
+        grades.add(student.grade);
+      }
+    });
+
+    [...grades]
+      .sort()
+      .forEach(grade => {
+
+        feeGrade.innerHTML += `
+          <option value="${grade}">
+            ${grade}
+          </option>
+        `;
+      });
+
+  } catch (err) {
+    console.error("Error loading fee grades:", err);
+  }
+};
+
+// ==============================
+// 💰 LOAD FEE LEARNERS
+// ==============================
+window.loadFeeLearners = async function () {
+
+  const feeGrade = document.getElementById("feeGrade");
+  const feeStudent = document.getElementById("feeStudent");
+
+  if (!feeGrade || !feeStudent) return;
+
+  const selectedGrade = feeGrade.value;
+
+  feeStudent.innerHTML = `
+    <option value="">-- Select Learner --</option>
+  `;
+
+  if (!selectedGrade) return;
+
+  try {
+
+    const snap = await get(schoolRef("students"));
+
+    if (!snap.exists()) return;
+
+    snap.forEach(child => {
+
+      const student = child.val();
+
+      if (student.grade === selectedGrade) {
+
+        feeStudent.innerHTML += `
+       <option value="${child.key}">
+  ${student.name}
+</option>
+        `;
+      }
+    });
+
+  } catch (err) {
+    console.error("Error loading fee learners:", err);
+  }
+};
 // ================= LOAD LEARNERS =================
 function loadLearnersFromStudents() {
 
@@ -3383,7 +5826,7 @@ function runSectionLogic(sectionId) {
       generateSubjectChampions();
       break;
 
-    case "generateMerit":
+    case "meritListSection":
       generateMeritList();
       break;
 
@@ -6760,6 +9203,9 @@ window.generateGenderPerformance = async function (selectedGrade, selectedExamPe
   }, 10000);
 };
 
+// ===============================
+// 🔥 SUBJECT RANKING REPORT
+// ===============================
 window.generateSubjectRanking = async function (grade, subjectKey, period) {
 
   const container = document.getElementById("subjectRankingContent");
@@ -6770,42 +9216,47 @@ window.generateSubjectRanking = async function (grade, subjectKey, period) {
   }
 
   // ===============================
-  // 🔥 SAFE CONTEXT RESOLUTION
+  // 🔥 FORCE UI-FIRST CONTEXT
   // ===============================
   const gradeFromUI =
-    (grade ??
+    (
+      grade ??
       document.getElementById("gradeFilter")?.value ??
       document.getElementById("gradeSelect")?.value ??
       window.reportContext?.grade ??
-      "").toString().trim();
+      ""
+    ).toString().trim();
 
   const periodFromUI =
-    (period ??
+    (
+      period ??
       document.getElementById("examPeriodFilter")?.value ??
       document.getElementById("examPeriodSelect")?.value ??
       window.reportContext?.examPeriod ??
-      "").toString().trim();
+      ""
+    ).toString().trim();
 
-  // ===============================
-  // 🔥 LOADER START
-  // ===============================
   showLoader();
   updateProgress(15, "Loading learners...");
   await new Promise(r => setTimeout(r, 300));
 
+  // ===============================
+  // 🔥 FILTER LEARNERS
+  // ===============================
   const learners = (allLoadedLearners || []).filter(l => {
 
-    const learnerGrade = (l.grade || "").toString().trim().toLowerCase();
-    const learnerPeriod = (l.examPeriod || l.period || l.exam || "").toString().trim().toLowerCase();
+    const learnerGrade =
+      (l.grade || "").toString().trim().toLowerCase();
+
+    const learnerPeriod =
+      (l.examPeriod || l.period || "").toString().trim().toLowerCase();
 
     const gradeMatch =
       !gradeFromUI ||
-      gradeFromUI === "All Grades" ||
       learnerGrade === gradeFromUI.toLowerCase();
 
     const periodMatch =
       !periodFromUI ||
-      periodFromUI === "All Periods" ||
       learnerPeriod === periodFromUI.toLowerCase();
 
     return gradeMatch && periodMatch;
@@ -6813,7 +9264,6 @@ window.generateSubjectRanking = async function (grade, subjectKey, period) {
 
   if (!learners.length) {
     hideLoader();
-
     container.innerHTML = `
       <div style="padding:20px;text-align:center;color:red;font-weight:bold;">
         No learners found for:
@@ -6826,12 +9276,6 @@ window.generateSubjectRanking = async function (grade, subjectKey, period) {
     return;
   }
 
-  updateProgress(35, "Preparing ranking data...");
-  await new Promise(r => setTimeout(r, 300));
-
-  // ===============================
-  // 🔹 SUBJECT MAP
-  // ===============================
   const subjectNames = {
     eng: "English",
     math: "Mathematics",
@@ -6857,25 +9301,18 @@ window.generateSubjectRanking = async function (grade, subjectKey, period) {
     return "BE 2";
   }
 
-  updateProgress(55, "Ranking learners...");
-  await new Promise(r => setTimeout(r, 300));
-
   const ranked = learners
     .map(l => ({
       name: l.name || "Unnamed",
       score: Number(l.marks?.[subjectKey] || 0),
       level: getLevel(Number(l.marks?.[subjectKey] || 0))
     }))
-    .filter(l => !isNaN(l.score))
     .sort((a, b) => b.score - a.score);
 
   const year = new Date().getFullYear();
 
-  updateProgress(75, "Building report table...");
-  await new Promise(r => setTimeout(r, 300));
-
   // ===============================
-  // 🔹 UI (UNCHANGED DESIGN)
+  // 🔥 FINAL HEADER (FIXED)
   // ===============================
   let html = `
     <div style="text-align:center;margin-bottom:20px;">
@@ -6886,17 +9323,11 @@ window.generateSubjectRanking = async function (grade, subjectKey, period) {
 
       <p><b>Subject:</b> ${subjectName}</p>
       <p><b>Year:</b> ${year}</p>
-      <p><b>Grade:</b> ${gradeFromUI || 'All Grades'}</p>
-      <p><b>Exam Period:</b> ${periodFromUI || 'All Periods'}</p>
+      <p><b>Grade:</b> ${gradeFromUI || "All Grades"}</p>
+      <p><b>Exam Period:</b> ${periodFromUI || "All Periods"}</p>
     </div>
 
-    <table style="
-      width:100%;
-      border-collapse:collapse;
-      background:white;
-      color:black;
-      font-size:16px;
-    ">
+    <table style="width:100%;border-collapse:collapse;background:white;color:black;font-size:16px;">
       <thead>
         <tr style="background:#000;color:#fff;">
           <th style="border:2px solid black;padding:10px;">Rank</th>
@@ -6909,7 +9340,6 @@ window.generateSubjectRanking = async function (grade, subjectKey, period) {
   `;
 
   ranked.forEach((l, i) => {
-
     html += `
       <tr ${i < 3 ? 'style="background:#FFD700;font-weight:bold;"' : ''}>
         <td style="border:2px solid black;padding:10px;">${i + 1}</td>
@@ -6922,279 +9352,13 @@ window.generateSubjectRanking = async function (grade, subjectKey, period) {
 
   html += `</tbody></table>`;
 
-  updateProgress(90, "Finalizing...");
-  await new Promise(r => setTimeout(r, 250));
-
   container.innerHTML = html;
 
-  setTimeout(() => {
-    container.classList.add("show");
-  }, 100);
-
+  hideLoader();
   container.scrollIntoView({ behavior: "smooth", block: "start" });
 
   updateProgress(100, "Complete ✅");
-  await new Promise(r => setTimeout(r, 300));
-
-  hideLoader();
-
-  if (typeof launchCelebration === "function") {
-    launchCelebration();
-  }
-
-  // ===============================
-  // 🖨️ PRINT BUTTON (UNCHANGED STYLE)
-  // ===============================
-  if (!document.getElementById("printRankingReportBtn")) {
-
-    const btn = document.createElement("button");
-    btn.id = "printRankingReportBtn";
-    btn.className = "print-button";
-    btn.innerHTML = '<i class="fas fa-print"></i> Print Report';
-
-    container.appendChild(btn);
-
-    btn.addEventListener("click", () => {
-
-      const w = window.open("", "_blank");
-
-      w.document.write(`
-        <html>
-        <head>
-          <title>Subject Ranking Report</title>
-          <style>
-            body { font-family: Arial; margin:20px; }
-            table { width:100%; border-collapse:collapse; }
-            th, td { border:2px solid black; padding:8px; }
-            th { background:#f4f4f4; }
-          </style>
-        </head>
-        <body>
-          ${container.innerHTML}
-        </body>
-        </html>
-      `);
-
-      w.document.close();
-      w.print();
-    });
-  }
 };
-
-window.generateSubjectRankingPerLearner = async function (
-    selectedGrade,
-    selectedPeriod,
-    selectedSubjects = []
-) {
-
-    showLoader();
-    updateProgress(10, "Loading learner data...");
-    await new Promise(r => setTimeout(r, 300));
-
-    const section = document.getElementById("generateSubjectRank");
-    if (section) section.style.display = "block";
-
-    const container = document.getElementById("reportOutput");
-
-    if (!container) {
-        hideLoader();
-        Swal.fire("Error", "Report container not found", "error");
-        return;
-    }
-
-    // ===============================
-    // 🔥 FIX: USE CONTEXT + UI FALLBACK
-    // ===============================
-    const gradeFromUI =
-        (selectedGrade ?? window.reportContext?.grade ?? "")
-            .toString().trim();
-
-    const periodFromUI =
-        (selectedPeriod ?? window.reportContext?.examPeriod ?? "")
-            .toString().trim();
-
-    const learnersData = (allLoadedLearners || []).filter(l => {
-
-        const gradeMatch =
-            !gradeFromUI || gradeFromUI === "All Grades"
-                ? true
-                : l.grade === gradeFromUI;
-
-        const periodMatch =
-            !periodFromUI
-                ? true
-                : (l.examPeriod === periodFromUI || l.period === periodFromUI);
-
-        return gradeMatch && periodMatch;
-    });
-
-    if (!learnersData.length) {
-        hideLoader();
-        container.innerHTML = "<p>No data loaded</p>";
-        return;
-    }
-
-    // ===============================
-    // 🔥 SUBJECT MAP
-    // ===============================
-    const allSubjects = {
-        eng: "English",
-        math: "Mathematics",
-        preTech: "Pre-Technical Studies",
-        kiswahili: "Kiswahili",
-        science: "Integrated Science",
-        social: "Social Studies",
-        agriculture: "Agriculture",
-        cre: "Religious Education",
-        creativeArt: "Creative Art"
-    };
-
-    const subjectKeys = (selectedSubjects && selectedSubjects.length)
-        ? selectedSubjects
-        : Object.keys(allSubjects);
-
-    updateProgress(30, "Computing rankings...");
-    await new Promise(r => setTimeout(r, 300));
-
-    const year = new Date().getFullYear();
-
-    let html = `
-        <div style="text-align:center;margin-bottom:20px;">
-            <img src="https://i.imgur.com/VSAh48K.jpeg"
-                 style="display:block;margin:0 auto 10px;max-width:80px;">
-            <h2>NACHU JUNIOR SCHOOL LEARNER SUBJECT TRACKER REPORT</h2>
-
-            <p>Year: ${year}</p>
-            <p>Grade: ${gradeFromUI || 'All Grades'}</p>
-            <p>Exam Period: ${periodFromUI || 'All Periods'}</p>
-        </div>
-
-        <table style="width:100%;border-collapse:collapse;background:white;color:black;font-size:15px;">
-            <thead>
-                <tr style="background:#000;color:#fff;">
-                    <th style="border:2px solid black;padding:8px;">No.</th>
-                    <th style="border:2px solid black;padding:8px;">Learner Name</th>
-                    <th style="border:2px solid black;padding:8px;">Subject</th>
-                    <th style="border:2px solid black;padding:8px;">Score</th>
-                    <th style="border:2px solid black;padding:8px;">Rank</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
-
-    let learnerCount = 1;
-
-    for (let l of learnersData) {
-
-        const learnerName = l.name || "Unknown";
-
-        const scores = subjectKeys.map(key => ({
-            subject: allSubjects[key] || key,
-            score: Number(l.marks?.[key] || 0)
-        }));
-
-        scores.sort((a, b) => b.score - a.score);
-
-        scores.forEach((entry, idx) => {
-
-            html += `
-                <tr>
-                    <td style="border:2px solid black;padding:8px;">${learnerCount}</td>
-                    <td style="border:2px solid black;padding:8px;">${learnerName}</td>
-                    <td style="border:2px solid black;padding:8px;">${entry.subject}</td>
-                    <td style="border:2px solid black;padding:8px;">${entry.score}</td>
-                    <td style="border:2px solid black;padding:8px;">${idx + 1}</td>
-                </tr>
-            `;
-        });
-
-        learnerCount++;
-    }
-
-    updateProgress(80, "Finalizing report...");
-    await new Promise(r => setTimeout(r, 300));
-
-    html += `
-            </tbody>
-        </table>
-
-        <div style="text-align:right;margin-top:20px;">
-            <button id="printLearnerSubjectRankBtn"
-                class="print-button">
-                Print Report
-            </button>
-        </div>
-
-        <div class="stamp" style="margin-top:40px;text-align:center;">
-            Nachu Junior School<br>
-            P.O. Box 561-00902, Kikuyu<br>
-            Exam Department<br>
-            Date: ${new Date().toLocaleDateString()}
-        </div>
-    `;
-
-    container.innerHTML = html;
-
-    updateProgress(95, "Launching visuals...");
-    await new Promise(r => setTimeout(r, 300));
-
-    container.scrollIntoView({ behavior: "smooth" });
-
-    hideLoader();
-
-    showEmojis?.();
-    showPopup?.(0, learnersData);
-
-    document.getElementById("printLearnerSubjectRankBtn")
-        ?.addEventListener("click", () => {
-
-            const w = window.open("", "_blank");
-
-            w.document.write(`
-                <html>
-                <head>
-                    <title>Subject Ranking Report</title>
-                    <style>
-                        body { font-family: Arial; margin: 20px; }
-                        table { border-collapse: collapse; width: 100%; }
-                        th, td { border: 2px solid black; padding: 8px; }
-                        th { background:#f2f2f2; }
-                        button { display:none; }
-                    </style>
-                </head>
-                <body>${container.innerHTML}</body>
-                </html>
-            `);
-
-            w.document.close();
-            w.print();
-        });
-};
-
-// ===============================
-// 🔥 TRIGGER FUNCTION
-// ===============================
-window.runSubjectRankingReport = function () {
-
-    const selector = document.getElementById("subjectSelector");
-
-    if (!selector) {
-        Swal.fire("Error", "Subject selector not found", "error");
-        return;
-    }
-
-    const selectedSubjects = Array.from(selector.selectedOptions).map(opt => opt.value);
-
-    const selectedGrade = window.reportContext?.grade;
-    const selectedPeriod = window.reportContext?.period;
-
-    window.generateSubjectRankingPerLearner(
-        selectedGrade,
-        selectedPeriod,
-        selectedSubjects
-    );
-};
-
 window.generatePathwayGrouping = async function (selectedGrade, selectedExamPeriod) {
 
     try {
@@ -7517,8 +9681,28 @@ window.generateMeritList = async function (mainGrade, selectedPeriod) {
     return "BE 1";
   }
 
-  const grade = mainGrade || window.reportContext?.grade || "";
-  const period = selectedPeriod || window.reportContext?.examPeriod || "";
+// ===============================
+// 🔥 FORCE READ FILTERS FROM UI
+// ===============================
+const grade =
+  (
+    mainGrade ??
+    document.getElementById("gradeFilter")?.value ??
+    window.reportContext?.grade ??
+    ""
+  )
+    .toString()
+    .trim();
+
+const period =
+  (
+    selectedPeriod ??
+    document.getElementById("examPeriodSelect")?.value ??
+    window.reportContext?.examPeriod ??
+    ""
+  )
+    .toString()
+    .trim();
 
   const learners = learnersData
     .filter(l => {
@@ -7719,20 +9903,22 @@ window.combineMarksByGradeWithDetails = async function (selectedGrade, selectedE
   // ===============================
   // 🔥 FORCE READ FROM UI (FIXED)
   // ===============================
-  const gradeFromUI =
-    normalize(
-      selectedGrade ??
-      document.getElementById("gradeFilter")?.value ??
-      window.reportContext?.grade
-    );
+  const rawGrade =
+    selectedGrade ??
+    document.getElementById("gradeFilter")?.value ??
+    window.reportContext?.grade;
 
-  const periodFromUI =
-    normalize(
-      selectedExamPeriod ??
-      document.getElementById("examPeriodSelect")?.value ??
-      window.reportContext?.examPeriod
-    );
+  // 🔥 normalized version ONLY for filtering
+  const gradeFromUI = normalize(rawGrade);
 
+  // 🔥 preserve original exam period for display if needed
+  const rawPeriod =
+    selectedExamPeriod ??
+    document.getElementById("examPeriodSelect")?.value ??
+    window.reportContext?.examPeriod;
+
+  // 🔥 normalized version ONLY for filtering
+  const periodFromUI = normalize(rawPeriod);
   // ===============================
   // 🔥 LOADER START
   // ===============================
@@ -7894,7 +10080,7 @@ window.combineMarksByGradeWithDetails = async function (selectedGrade, selectedE
       <h2>NACHU JUNIOR SCHOOL COMBINED MARKS REPORT</h2>
 
       <p>Year: ${year}</p>
-      <p>Grade: ${gradeFromUI || 'All Grades'}</p>
+      <p>Grade: ${rawGrade || 'All Grades'}</p>
       <p>Exam Period: ${periodFromUI || 'All Periods'}</p>
     </div>
 
@@ -8567,15 +10753,36 @@ function bindCount(path, elementId) {
     document.getElementById(elementId).innerText = snap.size || 0;
   });
 }
-
 /* INIT DASHBOARD */
 function loadDashboard() {
+
   updateClock();
 
-
-  bindCount("classes", "totalClasses");
-  bindCount("subjects", "totalSubjects");
   bindCount("notifications", "unreadCount");
+
+  // 🔥 NEW
+  updateTeachersCount();
+}
+
+function updateTeachersCount() {
+
+  onValue(schoolRef("teachers"), snap => {
+
+    let total = 0;
+
+    if (snap.exists()) {
+      total = snap.size || Object.keys(snap.val()).length;
+    }
+
+    const el = document.getElementById("totalTeachers");
+
+    if (el) {
+      el.innerText = total;
+    }
+
+    console.log("👩‍🏫 Teachers count updated:", total);
+
+  });
 }
 window.generateParentList = async () => {
 
@@ -8588,31 +10795,42 @@ window.generateParentList = async () => {
     return;
   }
 
-  if (!allStudents || !allStudents.length) {
+  if (!Array.isArray(allStudents) || allStudents.length === 0) {
     output.innerHTML = "<p>No students loaded yet</p>";
     return;
   }
 
   // ===============================
-  // 🔥 START LOADER (PHASE 1)
+  // 🔥 START LOADER
   // ===============================
   showLoader();
   updateProgress(10, "Loading student database...");
   await new Promise(r => setTimeout(r, 200));
 
-  const grades = [...new Set(allStudents.map(s => s.grade).filter(Boolean))];
+  // ===============================
+  // 🔥 SAFE GRADE EXTRACTION
+  // ===============================
+  const uniqueGrades = [
+    ...new Set(
+      allStudents
+        .map(s => s?.grade?.toString().trim())
+        .filter(Boolean)
+    )
+  ].sort();
 
-  if (grades.length === 0) {
+  if (!uniqueGrades.length) {
     hideLoader();
     Swal.fire("No Data", "No grades found in system", "error");
     return;
   }
 
   const gradeOptions = {};
-  grades.sort().forEach(g => gradeOptions[g] = g);
+  uniqueGrades.forEach(g => gradeOptions[g] = g);
 
   updateProgress(30, "Preparing grade selection...");
   await new Promise(r => setTimeout(r, 200));
+
+  hideLoader();
 
   // ===============================
   // 1️⃣ GRADE SELECTION
@@ -8622,17 +10840,19 @@ window.generateParentList = async () => {
     input: "select",
     inputOptions: gradeOptions,
     inputPlaceholder: "Choose a grade",
-    showCancelButton: true
+    showCancelButton: true,
+    allowOutsideClick: false
   });
 
-  if (!result.isConfirmed) {
-    hideLoader();
-    return;
-  }
+  if (!result.isConfirmed) return;
 
   const selectedGrade = result.value;
   const currentYear = new Date().getFullYear();
 
+  // ===============================
+  // 🔥 RESTART LOADER
+  // ===============================
+  showLoader();
   updateProgress(50, `Filtering learners for ${selectedGrade}...`);
   await new Promise(r => setTimeout(r, 200));
 
@@ -8640,14 +10860,14 @@ window.generateParentList = async () => {
   // 2️⃣ FILTER DATA
   // ===============================
   const learnersList = allStudents
-    .filter(s => s.grade === selectedGrade)
+    .filter(s => (s?.grade || "").toString().trim() === selectedGrade)
     .map(s => ({
-      learnerName: s.name || "-",
-      parentName: s.parentName || "-",
-      phone: s.parentPhone || "-"
+      learnerName: s?.name || "-",
+      parentName: s?.parentName || "-",
+      phone: s?.parentPhone || "-"
     }));
 
-  if (learnersList.length === 0) {
+  if (!learnersList.length) {
     hideLoader();
     Swal.fire("No Data", `No learners found for ${selectedGrade}`, "warning");
     return;
@@ -8657,52 +10877,96 @@ window.generateParentList = async () => {
   await new Promise(r => setTimeout(r, 200));
 
   // ===============================
-  // 3️⃣ TABLE BUILD
+  // 🔥 HEADER (IMPROVED)
   // ===============================
-  const tableHtml = `
-    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Parent Name</th>
-          <th>Learner Name</th>
-          <th>Phone Number</th>
-          <th>Signature</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${learnersList.map((p, i) => `
-          <tr>
-            <td>${i + 1}</td>
-            <td>${p.parentName}</td>
-            <td>${p.learnerName}</td>
-            <td>${p.phone}</td>
-            <td></td>
-          </tr>
-        `).join("")}
-      </tbody>
-    </table>
+  const headerHtml = `
+    <div style="
+      text-align:center;
+      margin-bottom:25px;
+      border-bottom:3px solid #000;
+      padding-bottom:15px;
+    ">
+
+      <div style="font-size:22px;font-weight:bold;">
+        RASM 360 SCHOOL SYSTEM
+      </div>
+
+      <div style="font-size:18px;font-weight:bold;margin-top:5px;">
+        PARENTS ATTENDANCE REGISTER
+      </div>
+
+      <div style="margin-top:8px;font-size:14px;">
+        YEAR: <b>${currentYear}</b> |
+        GRADE: <b>${selectedGrade}</b>
+      </div>
+
+      <div style="font-size:12px;color:#555;margin-top:5px;">
+        Generated: ${new Date().toLocaleString()}
+      </div>
+
+    </div>
   `;
 
   // ===============================
-  // 4️⃣ HEADER
+  // 🔥 TABLE (IMPROVED)
   // ===============================
-  const headerHtml = `
-    <div style="text-align:center; margin-bottom:20px;">
-      <img src="school-logo.png" style="height:80px; margin-bottom:10px;"><br>
-      <strong style="font-size:22px;">RASM 360 SCHOOL SYSTEM</strong><br>
-      <strong style="font-size:20px;">PARENTS ATTENDANCE REGISTER</strong><br>
-      <div style="margin-top:5px; font-size:14px;">
-        YEAR: ${currentYear} / GRADE: <strong>${selectedGrade}</strong>
-      </div>
-    </div>
+  const tableHtml = `
+    <table style="
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+    ">
+
+      <thead>
+        <tr style="background:#000;color:#fff;">
+          <th style="padding:10px;border:1px solid #000;">No.</th>
+          <th style="padding:10px;border:1px solid #000;">Parent Name</th>
+          <th style="padding:10px;border:1px solid #000;">Learner Name</th>
+          <th style="padding:10px;border:1px solid #000;">Phone</th>
+          <th style="padding:10px;border:1px solid #000;">Signature</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        ${learnersList.map((p, i) => `
+          <tr style="background:${i % 2 === 0 ? '#f9f9f9' : '#ffffff'}">
+
+            <td style="padding:8px;border:1px solid #ccc;">
+              ${i + 1}
+            </td>
+
+            <td style="padding:8px;border:1px solid #ccc;">
+              ${p.parentName}
+            </td>
+
+            <td style="padding:8px;border:1px solid #ccc;">
+              ${p.learnerName}
+            </td>
+
+            <td style="padding:8px;border:1px solid #ccc;">
+              ${p.phone}
+            </td>
+
+            <td style="
+              padding:8px;
+              border:1px solid #ccc;
+              height:35px;
+            ">
+              ______________________
+            </td>
+
+          </tr>
+        `).join("")}
+      </tbody>
+
+    </table>
   `;
 
   updateProgress(90, "Finalizing report...");
   await new Promise(r => setTimeout(r, 200));
 
   // ===============================
-  // 5️⃣ PRINT WINDOW
+  // 5️⃣ PRINT WINDOW (IMPROVED)
   // ===============================
   const printWindow = window.open("", "_blank");
 
@@ -8710,13 +10974,43 @@ window.generateParentList = async () => {
     <html>
     <head>
       <title>Parents List - ${selectedGrade}</title>
+
       <style>
-        body { font-family: Arial; padding:20px; }
-        table { width:100%; border-collapse:collapse; }
-        th, td { border:1px solid #000; padding:8px; }
-        th { background:#f2f2f2; }
+        body {
+          font-family: Arial;
+          padding: 20px;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          border: 1px solid #000;
+          padding: 8px;
+        }
+
+        th {
+          background: #000;
+          color: #fff;
+        }
+
+        tr:nth-child(even) {
+          background: #f2f2f2;
+        }
+
+        @page {
+          margin: 20px;
+        }
+
+        button {
+          display: none;
+        }
       </style>
+
     </head>
+
     <body>
       ${headerHtml}
       ${tableHtml}
@@ -8726,15 +11020,14 @@ window.generateParentList = async () => {
 
   printWindow.document.close();
 
-  updateProgress(100, "Opening print preview...");
-  await new Promise(r => setTimeout(r, 200));
-
   hideLoader();
+
+  updateProgress(100, "Done");
 
   printWindow.print();
 
   // ===============================
-  // 6️⃣ OUTPUT ON SCREEN
+  // 6️⃣ SCREEN OUTPUT
   // ===============================
   output.innerHTML = headerHtml + tableHtml;
 
@@ -8745,8 +11038,7 @@ window.generateParentList = async () => {
     timer: 1500,
     showConfirmButton: false
   });
-};
-window.addEventListener("DOMContentLoaded", () => {
+};window.addEventListener("DOMContentLoaded", () => {
 
   // SELECT ALL CHECKBOX
   document.addEventListener("change", (e) => {
@@ -9011,22 +11303,52 @@ function safeSetHTML(id, value) {
   const el = document.getElementById(id);
   if (el) el.innerHTML = value;
 }
-
 function updateDashboardFromStudents() {
 
+  // ================= SAFETY CHECK =================
   if (!allStudents || !allStudents.length) {
+
     document.getElementById("totalStudents").innerText = 0;
     document.getElementById("totalClasses").innerText = 0;
-    document.getElementById("gradeStats").innerHTML = "<p>No data</p>";
+    document.getElementById("totalSubjects").innerText = 0;
+
+    const gradeStats = document.getElementById("gradeStats");
+    if (gradeStats) gradeStats.innerHTML = "<p>No data</p>";
+
     return;
   }
 
   // ================= TOTAL STUDENTS =================
-  document.getElementById("totalStudents").innerText = allStudents.length;
+  document.getElementById("totalStudents").innerText =
+    allStudents.length;
 
   // ================= TOTAL CLASSES =================
-  const uniqueGrades = [...new Set(allStudents.map(s => s.grade).filter(Boolean))];
-  document.getElementById("totalClasses").innerText = uniqueGrades.length;
+  const uniqueGrades = [
+    ...new Set(
+      allStudents
+        .map(s => (s.grade || s.class || "").trim())
+        .filter(Boolean)
+    )
+  ];
+
+  document.getElementById("totalClasses").innerText =
+    uniqueGrades.length;
+
+  // ================= TOTAL SUBJECTS (FIXED MANUAL CURRICULUM) =================
+ const SCHOOL_SUBJECTS = [
+  "English",
+  "Kiswahili",
+  "Mathematics",
+  "Integrated Science",
+  "Social Studies",
+  "Pre-Technical Studies",
+  "Creative Arts & Sports",
+  "Religious Education",
+  "Agriculture & Nutrition"
+];
+
+  document.getElementById("totalSubjects").innerText =
+    SCHOOL_SUBJECTS.length;
 
   // ================= GROUP DATA =================
   const gradeMap = {};
@@ -9034,40 +11356,51 @@ function updateDashboardFromStudents() {
 
   allStudents.forEach(s => {
 
-    // Grade
-    const grade = s.grade || "Unknown";
+    // ================= GRADE =================
+    const grade = (s.grade || s.class || "Unknown").trim();
     gradeMap[grade] = (gradeMap[grade] || 0) + 1;
 
-    // Gender
+    // ================= GENDER =================
     const g = (s.gender || "").toLowerCase();
+
     if (g === "male") genderMap.Male++;
     else if (g === "female") genderMap.Female++;
   });
 
-  // ================= UI =================
+  // ================= UI: GRADE STATS =================
   const gradeStats = document.getElementById("gradeStats");
-  gradeStats.innerHTML = "";
+  if (gradeStats) {
 
-  Object.entries(gradeMap).forEach(([grade, count]) => {
-    const div = document.createElement("div");
+    gradeStats.innerHTML = "";
 
-    div.style.background = "#1e293b";
-    div.style.padding = "10px";
-    div.style.borderRadius = "8px";
+    Object.entries(gradeMap).forEach(([grade, count]) => {
 
-    div.innerHTML = `<strong>${grade}</strong><br>${count} students`;
+      const div = document.createElement("div");
 
-    gradeStats.appendChild(div);
-  });
+      div.style.background = "#1e293b";
+      div.style.padding = "10px";
+      div.style.borderRadius = "8px";
+      div.style.color = "white";
+
+      div.innerHTML = `<strong>${grade}</strong><br>${count} students`;
+
+      gradeStats.appendChild(div);
+    });
+  }
 
   // ================= CHARTS =================
-  renderGradeChart(gradeMap);
-  renderGenderChart(genderMap);
+  if (typeof renderGradeChart === "function") {
+    renderGradeChart(gradeMap);
+  }
+
+  if (typeof renderGenderChart === "function") {
+    renderGenderChart(genderMap);
+  }
 }
 let gradeChart, genderChart;
 
 function renderGradeChart(gradeMap) {
-  const ctx = document.getElementById("gradeChart");
+const ctx = document.getElementById("studentGradeChart");
 
   if (!ctx) return;
 
@@ -9133,16 +11466,6 @@ function renderGenderChart(genderMap) {
 }
 
 
-// ================= TEACHERS =================
-function updateDashboardFromTeachers(allTeachers) {
-
-  const totalEl = document.getElementById("totalTeachers");
-  if (!totalEl) return;
-
-  const count = allTeachers ? allTeachers.length : 0;
-
-  totalEl.innerText = count;
-}
 
 window.onload = function () {
 
@@ -9703,6 +12026,530 @@ async function generateSubjectRankingReport(selectedGrade, selectedExamPeriod) {
 
   hideLoader();
 }
+// ================= ATTENDANCE GLOBAL =================
+let attendanceCache = [];
+let attendanceMap = {};
+
+// ================= LOAD STUDENTS =================
+window.loadAttendance = async function () {
+
+    const grade = document.getElementById("attendanceGrade").value;
+    const date = document.getElementById("attendanceDate").value;
+
+    const output = document.getElementById("attendanceOutput");
+    const stats = document.getElementById("attendanceStats");
+
+    if (!grade || !date) {
+        return Swal.fire("Missing Data", "Select grade and date", "warning");
+    }
+
+    output.innerHTML = "Loading...";
+
+    try {
+        const snapshot = await get(child(schoolRef("students")));
+
+        attendanceCache = [];
+        attendanceMap = {};
+
+        if (!snapshot.exists()) {
+            output.innerHTML = "<p>No students found</p>";
+            return;
+        }
+
+        snapshot.forEach(childSnap => {
+
+            const s = childSnap.val();
+
+            if (s.grade === grade) {
+
+                const id = childSnap.key;
+
+                attendanceCache.push({ id, ...s });
+
+                attendanceMap[id] = { status: "Present" };
+            }
+        });
+
+        renderAttendanceTable();
+
+        updateAttendanceDashboard();
+
+    } catch (err) {
+        console.error(err);
+        output.innerHTML = "Error loading attendance";
+updateAttendanceDashboard();
+    }
+};
+
+// ================= RENDER TABLE =================
+window.renderAttendanceTable = function () {
+
+    const output = document.getElementById("attendanceOutput");
+
+    if (attendanceCache.length === 0) {
+        output.innerHTML = "<p>No students in this grade</p>";
+        return;
+    }
+
+    let html = `
+    <table border="1" width="100%" style="border-collapse:collapse; margin-top:10px;">
+      <tr>
+        <th>Name</th>
+        <th>ADM</th>
+        <th>Grade</th>
+        <th>Status</th>
+      </tr>
+    `;
+
+    attendanceCache.forEach(s => {
+
+        // ================= AI COLOR LOGIC =================
+        let percent = attendanceMap[s.id]?.percent || 100;
+
+        let rowColor = "";
+
+        if (percent < 60) {
+            rowColor = "background:#ffdddd";
+        }
+        else if (percent < 80) {
+            rowColor = "background:#fff3cd";
+        }
+        else {
+            rowColor = "background:#ddffdd";
+        }
+
+        html += `
+        <tr style="${rowColor}">
+          <td>${s.name}</td>
+          <td>${s.adm || ""}</td>
+          <td>${s.grade}</td>
+          <td>
+            <select onchange="setAttendance('${s.id}', this.value)">
+              <option value="Present">Present</option>
+              <option value="Absent">Absent</option>
+              <option value="Late">Late</option>
+            </select>
+          </td>
+        </tr>
+        `;
+    });
+
+    html += "</table>";
+
+    output.innerHTML = html;
+};
+
+// ================= SET STATUS =================
+window.setAttendance = function (id, status) {
+
+    // ================= SMART COLOR PERCENT =================
+    let percent = 100;
+
+    if (status === "Absent") {
+        percent = 40;
+    }
+    else if (status === "Late") {
+        percent = 75;
+    }
+
+    attendanceMap[id] = {
+        status,
+        percent
+    };
+
+    // 🔥 AUTO REFRESH COLORS
+    renderAttendanceTable();
+};
+
+// ================= SAVE ATTENDANCE =================
+window.saveAttendance = async function () {
+
+    const grade = document.getElementById("attendanceGrade").value;
+    const date = document.getElementById("attendanceDate").value;
+
+    if (!grade || !date) {
+        return Swal.fire("Missing", "Select grade and date", "warning");
+    }
+
+    Swal.fire({
+        title: "Saving attendance...",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    try {
+
+        const records = attendanceCache.map(s => ({
+            studentId: s.id,
+            name: s.name,
+            grade: s.grade,
+            date,
+            status: attendanceMap[s.id]?.status || "Present",
+            percent: attendanceMap[s.id]?.percent || 100
+        }));
+
+        await push(schoolRef("attendance"), {
+            grade,
+            date,
+            records,
+            createdAt: Date.now()
+        });
+
+        // ================= SUCCESS =================
+        Swal.fire({
+            icon: "success",
+            title: "Attendance Saved",
+            text: "Attendance recorded successfully ✔",
+            timer: 1500,
+            showConfirmButton: false
+        });
+
+        // ================= SMART REFRESH =================
+        updateAttendanceDashboard();
+        updateAttendanceSummary();
+        showAttendanceAI();
+
+    } catch (err) {
+
+        console.error(err);
+
+        Swal.fire({
+            icon: "error",
+            title: "Save Failed",
+            text: err.message || "Failed to save attendance"
+        });
+
+        // ================= STILL REFRESH ANALYTICS =================
+        updateAttendanceDashboard();
+        updateAttendanceSummary();
+        showAttendanceAI();
+    }
+};
+
+// ================= REPORT =================
+window.viewAttendanceReport = async function () {
+
+    const output = document.getElementById("attendanceReportOutput");
+    const startDate = document.getElementById("attendanceStartDate").value;
+    const endDate = document.getElementById("attendanceEndDate").value;
+
+    output.innerHTML = "Loading report...";
+
+    try {
+        const snapshot = await get(child(schoolRef("attendance")));
+
+        if (!snapshot.exists()) {
+            output.innerHTML = "<p>No attendance records found</p>";
+            return;
+        }
+
+        let html = "<h3>Attendance Reports</h3>";
+
+        snapshot.forEach(item => {
+
+            const data = item.val();
+
+            if (startDate && endDate) {
+                if (data.date < startDate || data.date > endDate) return;
+            }
+
+            html += `
+            <div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+              <b>Grade:</b> ${data.grade}<br>
+              <b>Date:</b> ${data.date}<br>
+              <b>Total Records:</b> ${data.records.length}
+            </div>
+            `;
+        });
+
+        output.innerHTML = html;
+
+        updateAttendanceSummary();
+
+    } catch (err) {
+        console.error(err);
+        output.innerHTML = "Error loading report";
+    }
+};
+
+// ================= SUMMARY =================
+window.updateAttendanceSummary = async function () {
+
+    const summary = document.getElementById("attendanceSummary");
+
+    try {
+
+        const snapshot = await get(child(schoolRef("attendance")));
+
+        if (!snapshot.exists()) {
+            summary.innerHTML = "No attendance data";
+            return;
+        }
+
+        let totalRecords = 0;
+
+        snapshot.forEach(item => {
+            totalRecords += item.val().records.length;
+        });
+
+        summary.innerHTML = `📌 Total Attendance Records: ${totalRecords}`;
+
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+// ================= INTELLIGENCE ENGINE =================
+window.calculateAttendanceIntelligence = async function (grade) {
+
+    const snapshot = await get(child(schoolRef("attendance")));
+
+    if (!snapshot.exists()) return null;
+
+    const studentStats = {};
+
+    snapshot.forEach(recordSnap => {
+
+        const data = recordSnap.val();
+
+        if (grade && data.grade !== grade) return;
+
+        data.records.forEach(r => {
+
+            if (!studentStats[r.studentId]) {
+                studentStats[r.studentId] = {
+                    name: r.name,
+                    total: 0,
+                    present: 0,
+                    absent: 0,
+                    late: 0
+                };
+            }
+
+            const s = studentStats[r.studentId];
+
+            s.total++;
+
+            if (r.status === "Present") s.present++;
+            else if (r.status === "Absent") s.absent++;
+            else if (r.status === "Late") s.late++;
+        });
+    });
+
+    Object.values(studentStats).forEach(s => {
+        s.percent = s.total ? ((s.present / s.total) * 100).toFixed(1) : 0;
+    });
+
+    return studentStats;
+};
+
+// ================= DASHBOARD =================
+window.updateAttendanceDashboard = async function () {
+
+    const grade = document.getElementById("attendanceGrade").value;
+    const statsBox = document.getElementById("attendanceStats");
+
+    const data = await calculateAttendanceIntelligence(grade);
+
+    if (!data) {
+        statsBox.innerHTML = "📊 No attendance data";
+        return;
+    }
+
+    let totalStudents = Object.keys(data).length;
+    let avg = 0;
+
+    Object.values(data).forEach(s => avg += parseFloat(s.percent));
+    avg = totalStudents ? (avg / totalStudents).toFixed(1) : 0;
+
+    statsBox.innerHTML = `
+        📊 Students: ${totalStudents} |
+        📈 Avg Attendance: ${avg}%
+    `;
+};
+
+// ================= RANKING =================
+window.showAttendanceRanking = async function () {
+
+    const output = document.getElementById("attendanceReportOutput");
+    const grade = document.getElementById("attendanceGrade").value;
+
+    const data = await calculateAttendanceIntelligence(grade);
+
+    if (!data) {
+        output.innerHTML = "<p>No data</p>";
+        return;
+    }
+
+    const sorted = Object.values(data)
+        .sort((a, b) => b.percent - a.percent);
+
+    let html = `<h3>🏆 Attendance Ranking</h3><ol>`;
+
+    sorted.forEach(s => {
+
+        let color = "black";
+
+        if (s.percent < 60) color = "red";
+        else if (s.percent < 80) color = "orange";
+        else color = "green";
+
+        html += `
+            <li style="color:${color}; font-weight:bold;">
+                ${s.name} - ${s.percent}% 
+                (P:${s.present} A:${s.absent} L:${s.late})
+            </li>
+        `;
+    });
+
+    html += "</ol>";
+
+    output.innerHTML = html;
+};
+
+// ================= MONTHLY ANALYTICS =================
+window.getMonthlyAttendance = async function () {
+
+    const snapshot = await get(child(schoolRef("attendance")));
+
+    const monthData = {};
+
+    snapshot.forEach(r => {
+
+        const d = r.val();
+
+        const month = d.date?.slice(0, 7);
+
+        if (!monthData[month]) monthData[month] = 0;
+
+        monthData[month] += d.records.length;
+    });
+
+    return monthData;
+};
+window.getAttendanceRiskAnalysis = async function (grade) {
+
+    const data = await calculateAttendanceIntelligence(grade);
+
+    if (!data) return null;
+
+    const riskList = {
+        highRisk: [],
+        mediumRisk: [],
+        safe: []
+    };
+
+    Object.values(data).forEach(s => {
+
+        const percent = parseFloat(s.percent);
+
+        if (percent < 60) {
+            riskList.highRisk.push(s);
+        }
+        else if (percent < 80) {
+            riskList.mediumRisk.push(s);
+        }
+        else {
+            riskList.safe.push(s);
+        }
+    });
+
+    return riskList;
+};
+window.showAttendanceAI = async function () {
+
+    const grade = document.getElementById("attendanceGrade").value;
+    const output = document.getElementById("attendanceReportOutput");
+
+    const risk = await getAttendanceRiskAnalysis(grade);
+
+    if (!risk) {
+        output.innerHTML = "<p>No data available</p>";
+        return;
+    }
+
+    let html = `<h3>🤖 Attendance AI Insights</h3>`;
+
+    // ================= HIGH RISK =================
+    html += `<h4 style="color:red;">🔴 High Risk (Below 60%)</h4><ul>`;
+
+    risk.highRisk.forEach(s => {
+        html += `<li>${s.name} - ${s.percent}%</li>`;
+    });
+
+    html += `</ul>`;
+
+    // ================= MEDIUM =================
+    html += `<h4 style="color:orange;">🟠 Medium Risk (60% - 79%)</h4><ul>`;
+
+    risk.mediumRisk.forEach(s => {
+        html += `<li>${s.name} - ${s.percent}%</li>`;
+    });
+
+    html += `</ul>`;
+
+    // ================= SAFE =================
+    html += `<h4 style="color:green;">🟢 Safe Students (80%+)</h4><ul>`;
+
+    risk.safe.forEach(s => {
+        html += `<li>${s.name} - ${s.percent}%</li>`;
+    });
+
+    html += `</ul>`;
+
+    output.innerHTML = html;
+};
+
+window.sendAttendanceAlerts = async function () {
+
+    const grade = document.getElementById("attendanceGrade").value;
+
+    const risk = await getAttendanceRiskAnalysis(grade);
+
+    if (!risk) return;
+
+    let alerts = [];
+
+    risk.highRisk.forEach(s => {
+
+        alerts.push({
+            name: s.name,
+            message: `Alert: ${s.name} attendance is ${s.percent}%. Please follow up.`
+        });
+    });
+
+    console.log("📩 Parent Alerts:", alerts);
+
+    Swal.fire({
+        icon: "info",
+        title: "Alerts Generated",
+        text: `${alerts.length} parent alerts ready`
+    });
+
+    return alerts;
+};
+
+window.updateAttendanceSummary = async function () {
+
+    const summary = document.getElementById("attendanceSummary");
+    const grade = document.getElementById("attendanceGrade").value;
+
+    const risk = await getAttendanceRiskAnalysis(grade);
+
+    if (!risk) {
+        summary.innerHTML = "No data available";
+        return;
+    }
+
+    summary.innerHTML = `
+        📌 High Risk: ${risk.highRisk.length} |
+        🟠 Medium Risk: ${risk.mediumRisk.length} |
+        🟢 Safe: ${risk.safe.length}
+    `;
+};
+
+
+
 </script>
 
 
